@@ -1,0 +1,28 @@
+@import "../../commons/Commons.scss";
+
+
+
+.main-container {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    height: 100vh;
+    background-image: linear-gradient(to top, $secondColor, $secondColor-light);
+
+    h1 {
+        padding: 10px;
+        color: $primaryColor
+    }
+}
+
+.log-in-container {
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px;
+}
+
+.title-container {
+    @include flexCenter;
+    width: 100%;
+}
+

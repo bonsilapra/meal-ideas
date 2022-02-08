@@ -1,0 +1,92 @@
+.btn {
+  padding: 5px 10px;
+  outline: none;
+  border: none;
+  cursor: pointer;
+}
+
+.btn--primary {
+  background-color: #13678A;
+  color: #45C4B0;
+  -webkit-box-shadow: 0 0 10px #012030;
+          box-shadow: 0 0 10px #012030;
+  -webkit-transition: 0.3s ease-out;
+  transition: 0.3s ease-out;
+}
+
+.btn--primary:hover {
+  background-color: #45C4B0;
+  color: #13678A;
+  -webkit-transition: 0.3s ease-out;
+  transition: 0.3s ease-out;
+}
+
+.btn--square {
+  border-radius: 10px;
+}
+
+.btn--small {
+  padding: 0.4em 0.8em;
+  font-size: 0.8em;
+  font-weight: 600;
+  margin: 5px;
+}
+
+.btn--medium {
+  padding: 0.5em 1em;
+  font-size: 1em;
+  font-weight: 600;
+  margin: 5px;
+}
+
+.btn--large {
+  padding: 0.7em 1.4em;
+  font-size: 1.4em;
+  font-weight: 800;
+  margin: 5px;
+}
+
+.main-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  height: 100vh;
+  background-image: -webkit-gradient(linear, left bottom, left top, from(#9AEBA3), to(#DAFDBA));
+  background-image: linear-gradient(to top, #9AEBA3, #DAFDBA);
+}
+
+.main-container h1 {
+  padding: 10px;
+  color: #13678A;
+}
+
+.log-in-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  padding: 10px;
+}
+
+.title-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
+}
+/*# sourceMappingURL=MainPage.css.map */

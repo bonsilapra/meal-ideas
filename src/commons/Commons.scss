@@ -1,0 +1,28 @@
+
+// colors
+$primaryColor: #13678A;
+$primaryColor-light: #45C4B0;
+$secondColor: #9AEBA3;
+$secondColor-light: #DAFDBA;
+$dark: #012030;
+$light: #F2F2F2;
+$grey: #C4C4C4;
+$dark-grey: #2E2E2E;
+
+//food colors:
+$fish: #38D1FF;
+$noMeat: #57F526;
+$chicken: #FAE02F;
+$pig: #FF8628;
+$beef: #FA402A;
+
+
+@mixin flexCenter {
+    display: flex;
+    justify-content: center;
+    align-items: center
+}
+
+
+@import "./MyButton";
+
