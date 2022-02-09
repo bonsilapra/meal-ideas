@@ -19,14 +19,14 @@ function MealCard() {
         'cardFolded': !cardFull 
     });
 
-    const [isDinner, setidDinner] = useState(true)
+    const [isDinner, setDinner] = useState(false)
 
     const mealClass = classNames({
         'dinnerCard': isDinner,
         'restMealsCard': !isDinner,
     });
 
-    let img = cow
+    let img = chicken
 
     const setImg = (meat) => {
         switch (meat) {
@@ -88,7 +88,6 @@ function MealCard() {
         <div>
             <MyButton
                 buttonStyle='btn--meal-card'
-                buttonShape='btn--square'
                 buttonSize='btn--meal-size'
                 onClick={handleCard}
             >
@@ -102,6 +101,9 @@ function MealCard() {
                         <div className="meal-name">
                             <h2>Nazwa dania</h2>
                         </div>
+                    </div>
+                    <div className="meal-details">
+
                     </div>
                 </div>
             </MyButton>

@@ -6,7 +6,6 @@
     width: 300px;
     border-radius: 20px;
     transition: 0.2s ease;
-    box-shadow: 0 0 10px $primaryColor;
 }
 
 .cardFull {
@@ -41,25 +40,27 @@
     height: 100%;
     width: 100%;
     flex-direction: row;
+    justify-content: flex-start;
+    .meat-type {
+        @include flexCenter(column);
+        margin: 25px 10px 5px 10px;
+        height: 70px;
+        // background-image: radial-gradient(closest-side, $primaryColor 20% , $light);
+    }
+    
+    .meat-type-img {
+        height: 70px;
+        width: 70px;
+    }
+}
+
+.restMealsCard {
+    display: flex;
+    height: 100%;
+    width: 100%;
     justify-content: flex-start
 }
 
-
-.restMealsCard {
-    @include flexCenter(column);
-}
-
-.meat-type {
-    @include flexCenter(column);
-    margin: 10px;
-    height: 80px;
-}
-
-.meat-type-img {
-    height: auto;
-    width: 70px;
-    margin-top: 20px
-}
 
 .meal-name {
     @include flexCenter(column);
@@ -67,3 +68,9 @@
     height: 100px;
     color: $primaryColor;
 }
+
+.meal-details {
+    display: flex;
+
+}
+

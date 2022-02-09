@@ -23,9 +23,36 @@
           box-shadow: 0 0 10px #13678A;
 }
 
+.btn--primary:focus {
+  background-color: #13678A;
+  color: #e2e2e2;
+  -webkit-box-shadow: 0 0 10px #012030;
+          box-shadow: 0 0 10px #012030;
+  -webkit-transition: 0.3s ease-out;
+  transition: 0.3s ease-out;
+}
+
 .btn--meal-card {
   background: transparent;
   border-radius: 20px;
+  -webkit-box-shadow: 0 0 10px #13678A;
+          box-shadow: 0 0 10px #13678A;
+  -webkit-transition: 0.3s ease-out;
+  transition: 0.3s ease-out;
+}
+
+.btn--meal-card:hover {
+  -webkit-box-shadow: 0 0 10px #012030;
+          box-shadow: 0 0 10px #012030;
+  -webkit-transition: 0.3s ease-out;
+  transition: 0.3s ease-out;
+}
+
+.btn--meal-card:hover:focus {
+  -webkit-box-shadow: 0 0 10px #13678A;
+          box-shadow: 0 0 10px #13678A;
+  -webkit-transition: 0.3s ease-out;
+  transition: 0.3s ease-out;
 }
 
 .btn--square {

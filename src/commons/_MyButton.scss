@@ -17,12 +17,28 @@
         transition: 0.3s ease-out;
         box-shadow: 0 0 10px $primaryColor;
     }
+    &:focus {
+        background-color: $primaryColor;
+        color: $grey;
+        box-shadow: 0 0 10px $dark;
+        transition: 0.3s ease-out;
+    }
 }
 
 
 .btn--meal-card {
     background: transparent;
     border-radius: 20px;
+    box-shadow: 0 0 10px $primaryColor;
+    transition: 0.3s ease-out;
+    &:hover {
+        box-shadow: 0 0 10px $dark;
+        transition: 0.3s ease-out;
+    &:focus {
+        box-shadow: 0 0 10px $primaryColor;
+        transition: 0.3s ease-out;
+    }
+    }
 }
 
 

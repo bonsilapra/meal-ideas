@@ -36,7 +36,7 @@ export const MyButton = ({
         ? buttonStyle
         : STYLES[0];
 
-    const checkButtonShape = SHAPES.includes(buttonShape) ? buttonShape : SHAPES[0];
+    const checkButtonShape = SHAPES.includes(buttonShape) ? buttonShape : "";
 
     const checkButtonSize = SIZES.includes(buttonSize) ? buttonSize : SIZES[0];
 
