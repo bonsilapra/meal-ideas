@@ -1,6 +1,69 @@
-.meal-container {
-    color: wheat;
-    background-color: grey;
-    height: 200px;
-    width: 600px;
+@import "../../commons/Commons.scss";
+
+.cardFolded {
+    @include flexCenter(column);
+    height: 100px;
+    width: 300px;
+    border-radius: 20px;
+    transition: 0.2s ease;
+    box-shadow: 0 0 10px $primaryColor;
+}
+
+.cardFull {
+    @extend .cardFolded;
+    height: 300px;
+    justify-content: flex-start;
+}
+
+.cardDinner {
+    background-image: linear-gradient(to bottom, $red 20px, $light 20px);
+}
+
+.cardBreakfast {
+    background-image: linear-gradient(to bottom, $yellow 20px, $light 20px);
+}
+
+.cardSupper {
+    background-image: linear-gradient(to bottom, $orange 20px, $light 20px);
+}
+
+.cardDessert {
+    background-image: linear-gradient(to bottom, $blue 20px, $light 20px);
+}
+
+.cardOther {
+    background-image: linear-gradient(to bottom, $green 20px, $light 20px);
+}
+
+
+.dinnerCard {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    flex-direction: row;
+    justify-content: flex-start
+}
+
+
+.restMealsCard {
+    @include flexCenter(column);
+}
+
+.meat-type {
+    @include flexCenter(column);
+    margin: 10px;
+    height: 80px;
+}
+
+.meat-type-img {
+    height: auto;
+    width: 70px;
+    margin-top: 20px
+}
+
+.meal-name {
+    @include flexCenter(column);
+    width: 100%;
+    height: 100px;
+    color: $primaryColor;
 }

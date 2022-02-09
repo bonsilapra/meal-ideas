@@ -6,21 +6,22 @@ $secondColor: #9AEBA3;
 $secondColor-light: #DAFDBA;
 $dark: #012030;
 $light: #F2F2F2;
-$grey: #C4C4C4;
-$dark-grey: #2E2E2E;
+$grey: #e2e2e2;
+$dark-grey: #a0a0a0;
 
 //food colors:
-$fish: #38D1FF;
-$noMeat: #57F526;
-$chicken: #FAE02F;
-$pig: #FF8628;
-$beef: #FA402A;
+$blue: #38D1FF;
+$green: #57F526;
+$yellow: #FAE02F;
+$orange: #FF8628;
+$red: #FA402A;
 
 
-@mixin flexCenter {
+@mixin flexCenter($direction) {
     display: flex;
     justify-content: center;
-    align-items: center
+    align-items: center;
+    flex-direction: $direction
 }
 
 

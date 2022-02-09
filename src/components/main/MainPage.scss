@@ -7,11 +7,17 @@
     justify-content: flex-start;
     flex-direction: column;
     height: 100vh;
-    background-image: linear-gradient(to top, $secondColor, $secondColor-light);
+    background-image: linear-gradient(to top right, $dark-grey, $grey);
 
     h1 {
-        padding: 10px;
+        padding: 20px;
         color: $primaryColor
+    }
+
+    input {
+        padding: 5px;
+        font-size: 1.5em;
+        color: $primaryColor;
     }
 }
 
@@ -22,7 +28,18 @@
 }
 
 .title-container {
-    @include flexCenter;
+    @include flexCenter(column);
     width: 100%;
+}
+
+.search-container {
+    @include flexCenter(row);
+}
+
+.cards-container {
+    @include flexCenter(row);
+    flex-wrap: wrap;
+    padding: 20px;
+    width: calc(100% - 40px);
 }
 

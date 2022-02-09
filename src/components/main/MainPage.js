@@ -18,8 +18,25 @@ function MainPage() {
             </div>
             <div className="title-container">
                 <h1>Co dziś jemy?</h1>
+                <div className="search-container">
+                    <input 
+                        className="form-control" 
+                        type="text" 
+                        placeholder="Szukaj"
+                    >
+                    </input>
+                    <MyButton
+                        buttonStyle='btn--primary'
+                        buttonShape='btn--square'
+                        buttonSize='btn--medium'
+                    >
+                        <i className="fas fa-search"></i>
+                    </MyButton>
+                </div>
             </div>
-            {/* <MealCard /> */}
+            <div className="cards-container">
+                <MealCard />
+            </div>
         </div>
     )
 }

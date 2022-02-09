@@ -3,7 +3,7 @@ import './Commons.css';
 
 const STYLES = [
     'btn--primary', 
-    'btn--mobile-menu',
+    'btn--meal-card',
 ];
 
 
@@ -17,7 +17,8 @@ const SIZES = [
     'btn--small', 
     'btn--medium', 
     'btn--large',
-    'btn--large-mobile'
+    'btn--large-mobile',
+    'btn--meal-size'
 ];
 
 export const MyButton = ({
