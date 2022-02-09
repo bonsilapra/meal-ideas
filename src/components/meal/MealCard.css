@@ -165,13 +165,13 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  margin: 25px 10px 5px 10px;
+  margin: 25px 10px 15px 10px;
   height: 70px;
 }
 
 .dinnerCard .meat-type-img {
-  height: 70px;
-  width: 70px;
+  height: 60px;
+  width: 60px;
 }
 
 .restMealsCard {
@@ -257,5 +257,14 @@
   width: 70%;
   padding: 10px;
   color: #012030;
+}
+
+.content a {
+  color: #13678A;
+  text-decoration: none;
+}
+
+.content a:active {
+  color: #a0a0a0;
 }
 /*# sourceMappingURL=MealCard.css.map */

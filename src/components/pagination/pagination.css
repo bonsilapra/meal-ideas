@@ -1,3 +1,92 @@
+.btn {
+  padding: 5px 10px;
+  outline: none;
+  border: none;
+  cursor: pointer;
+}
+
+.btn--primary {
+  background-color: #13678A;
+  color: #e2e2e2;
+  -webkit-box-shadow: 0 0 10px #012030;
+          box-shadow: 0 0 10px #012030;
+  -webkit-transition: 0.3s ease-out;
+  transition: 0.3s ease-out;
+}
+
+.btn--primary:hover {
+  background-color: #e2e2e2;
+  color: #13678A;
+  -webkit-transition: 0.3s ease-out;
+  transition: 0.3s ease-out;
+  -webkit-box-shadow: 0 0 10px #13678A;
+          box-shadow: 0 0 10px #13678A;
+}
+
+.btn--primary:focus {
+  background-color: #13678A;
+  color: #e2e2e2;
+  -webkit-box-shadow: 0 0 10px #012030;
+          box-shadow: 0 0 10px #012030;
+  -webkit-transition: 0.3s ease-out;
+  transition: 0.3s ease-out;
+}
+
+.btn--meal-card {
+  background: transparent;
+  border-radius: 20px;
+  -webkit-box-shadow: 0 0 10px #012030;
+          box-shadow: 0 0 10px #012030;
+  -webkit-transition: 0.3s ease-out;
+  transition: 0.3s ease-out;
+}
+
+.btn--meal-card:hover {
+  -webkit-box-shadow: 0 0 10px #13678A;
+          box-shadow: 0 0 10px #13678A;
+  -webkit-transition: 0.3s ease-out;
+  transition: 0.3s ease-out;
+}
+
+.btn--meal-card:hover:focus {
+  -webkit-box-shadow: 0 0 10px #13678A;
+          box-shadow: 0 0 10px #13678A;
+  -webkit-transition: 0.3s ease-out;
+  transition: 0.3s ease-out;
+}
+
+.btn--square {
+  border-radius: 10px;
+}
+
+.btn--small {
+  padding: 0.4em 0.8em;
+  font-size: 0.8em;
+  font-weight: 600;
+  margin: 5px;
+}
+
+.btn--medium {
+  padding: 0.7em 1em;
+  font-size: 1em;
+  font-weight: 600;
+  margin: 5px;
+}
+
+.btn--large {
+  padding: 0.7em 1.4em;
+  font-size: 1.4em;
+  font-weight: 800;
+  margin: 5px;
+}
+
+.btn--meal-size {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
 .pagination-container {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -10,7 +99,7 @@
   height: 32px;
   text-align: center;
   margin: auto 4px;
-  color: rgba(0, 0, 0, 0.87);
+  color: #012030;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -22,7 +111,7 @@
   letter-spacing: 0.01071em;
   border-radius: 16px;
   line-height: 1.43;
-  font-size: 13px;
+  font-size: 16px;
   min-width: 32px;
 }
 
@@ -32,43 +121,25 @@
 }
 
 .pagination-container .pagination-item:hover {
-  background-color: rgba(0, 0, 0, 0.04);
+  background-color: #e2e2e2;
   cursor: pointer;
 }
 
 .pagination-container .pagination-item.selected {
-  background-color: rgba(0, 0, 0, 0.08);
+  background-color: #13678A;
+  color: #e2e2e2;
 }
 
 .pagination-container .pagination-item .arrow::before {
   position: relative;
-  /* top: 3pt; Uncomment this to lower the icons as requested in comments*/
-  content: '';
-  /* By using an em scale, the arrows will size with the font */
   display: inline-block;
   width: 0.4em;
   height: 0.4em;
-  border-right: 0.12em solid rgba(0, 0, 0, 0.87);
-  border-top: 0.12em solid rgba(0, 0, 0, 0.87);
-}
-
-.pagination-container .pagination-item .arrow.left {
-  -webkit-transform: rotate(-135deg) translate(-50%);
-          transform: rotate(-135deg) translate(-50%);
-}
-
-.pagination-container .pagination-item .arrow.right {
-  -webkit-transform: rotate(45deg);
-          transform: rotate(45deg);
 }
 
 .pagination-container .pagination-item.disabled {
   pointer-events: none;
-}
-
-.pagination-container .pagination-item.disabled .arrow::before {
-  border-right: 0.12em solid rgba(0, 0, 0, 0.43);
-  border-top: 0.12em solid rgba(0, 0, 0, 0.43);
+  opacity: 40%;
 }
 
 .pagination-container .pagination-item.disabled:hover {

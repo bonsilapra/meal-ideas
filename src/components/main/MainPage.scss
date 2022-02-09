@@ -42,8 +42,16 @@
 
 .cards-container {
     @include flexCenter(row);
+    align-items: flex-start;
     flex-wrap: wrap;
     padding: 20px;
     width: calc(100% - 40px);
 }
 
+
+.pagination-bar {
+    width: 100%;
+    @include flexCenter(row);
+    margin-top: auto;
+    margin-bottom: 20px;
+}

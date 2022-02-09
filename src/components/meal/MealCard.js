@@ -8,7 +8,15 @@ import leaf from "../../images/leaf.png"
 import pig from "../../images/pig.png"
 import "./MealCard.css"
 
-function MealCard() {
+function MealCard({
+    mealCategory,
+    mealName, 
+    source,
+    portions,
+    meatType,
+    fillers, 
+    ingredients
+}) {
 
     const [cardFull, setCardFull] = useState(false)
     const handleCard = () => {
@@ -20,30 +28,24 @@ function MealCard() {
         'cardFolded': !cardFull 
     });
 
-    const [isDinner, setDinner] = useState(false)
 
-    const mealClass = classNames({
-        'dinnerCard': isDinner,
-        'restMealsCard': !isDinner,
-    });
+    let img = ""
 
-    let img = chicken
-
-    const setImg = (meat) => {
-        switch (meat) {
-            case "chicken":
+    const setImg = (meatType) => {
+        switch (meatType) {
+            case "kurczak":
                 img = chicken;
                 break;
-            case "cow":
+            case "wołowina":
                 img = cow;
                 break;
-            case "fish":
+            case "ryba":
                 img = fish;
                 break;
-            case "leaf":
+            case "":
                 img = leaf;
                 break;
-            case "pig":
+            case "wieprzowina":
                 img = pig;
                 break;
             default: 
@@ -52,46 +54,50 @@ function MealCard() {
     }
 
 
-    const mealType = classNames({
-        "cardDinner": false,
-        "cardBreakfast": false,
-        "cardSupper": false,
-        "cardDessert": true,
-        "cardOther": false,
-    });
+    // const mealType = classNames({
+    //     "cardDinner": false,
+    //     "cardBreakfast": false,
+    //     "cardSupper": false,
+    //     "cardDessert": false,
+    //     "cardOther": false,
+    // });
 
-    const mockData = [
-        {label: "Źródło", content: "https://aniagotuje.pl/przepis/kruche-ciastka-z-cukrem"},
-        {label: "Składniki", content: "masło, śmietana 18%, jajka, cukier, mąka"},
-        {label: "Porcje", content: "78"}
+    const mealData = [
+        {label: "Źródło", content: source},
+        {label: "Składniki", content: meatType + ", " + fillers + ", " + ["cebula", "czosnek", "przecier pomidorowy"].join(", ")},
+        {label: "Porcje", content: portions}
     ]
 
-    // useEffect(() => {
-    //     sourceCheck(mockData[0])
-    // })
 
 
     return (
-        <div>
+        <div style={{margin:"10px"}}>
             <MyButton
                 buttonStyle='btn--meal-card'
                 buttonSize='btn--meal-size'
                 onClick={handleCard}
             >
-                <div className={classNames(cardClass, mealType)}> 
-                    <div className={classNames(mealClass)}>
-                        {isDinner ?
+                <div className={`${classNames(cardClass)}
+                ${mealCategory=="obiad" ? "cardDinner" : ""}
+                ${mealCategory=="śniadanie" ? "cardBreakfast" : ""}
+                ${mealCategory=="kolacja" ? "cardSupper" : ""}
+                ${mealCategory=="deser" ? "cardDessert" : ""}
+                ${mealCategory=="inne" ? "cardOther" : ""}`}
+                > 
+                    <div className={mealCategory=="obiad" ? "dinnerCard" : "restMealsCard"}>
+                        {mealCategory=="obiad" ?
                             <div className="meat-type">
+                                {setImg(meatType)}
                                 <img src={img} alt="Meat type" className="meat-type-img" />
                             </div>:""
                         }
                         <div className="meal-name">
-                            <h2>Kruche ciastka z cukrem</h2>
+                            <h2>{mealName}</h2>
                         </div>
                     </div>
                     {cardFull ?
                         <div className="meal-details">
-                            {mockData.map((pos) =>
+                            {mealData.map((pos) =>
                                 <div className="detail-type" key={pos.label}>
                                     <div className="label">
                                         <h4>{pos.label}</h4>

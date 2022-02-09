@@ -43,14 +43,14 @@
     justify-content: flex-start;
     .meat-type {
         @include flexCenter(column);
-        margin: 25px 10px 5px 10px;
+        margin: 25px 10px 15px 10px;
         height: 70px;
         // background-image: radial-gradient(closest-side, $primaryColor 20% , $light);
     }
 
     .meat-type-img {
-        height: 70px;
-        width: 70px;
+        height: 60px;
+        width: 60px;
     }
 }
 
@@ -94,6 +94,15 @@
     overflow-wrap: anywhere;
     width: 70%;
     padding: 10px;
-    color: $dark
+    color: $dark;
+    
+    a {
+        color: $primaryColor;
+        text-decoration: none;
+        &:active {
+            color: $dark-grey
+        }
+    }
+
 }
 
