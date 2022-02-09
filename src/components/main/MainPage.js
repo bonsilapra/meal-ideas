@@ -32,6 +32,13 @@ function MainPage() {
                     >
                         <i className="fas fa-search"></i>
                     </MyButton>
+                    <MyButton
+                        buttonStyle='btn--primary'
+                        buttonShape='btn--square'
+                        buttonSize='btn--medium'
+                    >
+                        <i className="fas fa-filter"></i>
+                    </MyButton>
                 </div>
             </div>
             <div className="cards-container">

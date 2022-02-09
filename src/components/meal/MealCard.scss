@@ -2,42 +2,42 @@
 
 .cardFolded {
     @include flexCenter(column);
+    justify-content: flex-start;
     height: 100px;
-    width: 300px;
+    width: 350px;
     border-radius: 20px;
-    transition: 0.2s ease;
 }
 
 .cardFull {
     @extend .cardFolded;
-    height: 300px;
+    height: 280px;
     justify-content: flex-start;
 }
 
 .cardDinner {
-    background-image: linear-gradient(to bottom, $red 20px, $light 20px);
+    background-image: linear-gradient(to bottom, $red 1px, $light 20px);
 }
 
 .cardBreakfast {
-    background-image: linear-gradient(to bottom, $yellow 20px, $light 20px);
+    background-image: linear-gradient(to bottom, $yellow 1px, $light 20px);
 }
 
 .cardSupper {
-    background-image: linear-gradient(to bottom, $orange 20px, $light 20px);
+    background-image: linear-gradient(to bottom, $orange 1px, $light 20px);
 }
 
 .cardDessert {
-    background-image: linear-gradient(to bottom, $blue 20px, $light 20px);
+    background-image: linear-gradient(to bottom, $blue 1px, $light 20px);
 }
 
 .cardOther {
-    background-image: linear-gradient(to bottom, $green 20px, $light 20px);
+    background-image: linear-gradient(to bottom, $green 1px, $light 20px);
 }
 
 
 .dinnerCard {
     display: flex;
-    height: 100%;
+    height: 100px;
     width: 100%;
     flex-direction: row;
     justify-content: flex-start;
@@ -47,7 +47,7 @@
         height: 70px;
         // background-image: radial-gradient(closest-side, $primaryColor 20% , $light);
     }
-    
+
     .meat-type-img {
         height: 70px;
         width: 70px;
@@ -56,11 +56,10 @@
 
 .restMealsCard {
     display: flex;
-    height: 100%;
+    height: 100px;
     width: 100%;
-    justify-content: flex-start
+    // justify-content: flex-start
 }
-
 
 .meal-name {
     @include flexCenter(column);
@@ -70,7 +69,31 @@
 }
 
 .meal-details {
-    display: flex;
+    @include flexCenter(column);
+    width: 100%;
+    height: 200px;
+}
 
+.detail-type {
+    @include flexCenter(row);
+    align-items: flex-start;
+    width: 100%;
+}
+
+
+.label {
+    display: flex;
+    width: 20%;
+    padding: 10px;
+    color: $primaryColor;
+}
+
+.content {
+    display: flex;
+    text-align: justify;
+    overflow-wrap: anywhere;
+    width: 70%;
+    padding: 10px;
+    color: $dark
 }
 

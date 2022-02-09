@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { MyButton } from "../../commons/MyButtons"
 import classNames from 'classnames';
 import chicken from "../../images/chicken.png"
@@ -6,13 +6,14 @@ import cow from "../../images/cow.png"
 import fish from "../../images/fish.png"
 import leaf from "../../images/leaf.png"
 import pig from "../../images/pig.png"
-
 import "./MealCard.css"
 
 function MealCard() {
 
     const [cardFull, setCardFull] = useState(false)
-    const handleCard = () => setCardFull(!cardFull)
+    const handleCard = () => {
+        setCardFull(!cardFull)
+    }
 
     const cardClass = classNames({
         'cardFull': cardFull,
@@ -51,37 +52,23 @@ function MealCard() {
     }
 
 
-    // switch (cardMealType) {
-    //     case "dinner":
-    //         setDinner(true);
-    //         break;
-    //     case "breakfast":
-    //         setBreakfast(true);
-    //         break;
-    //     case "supper":
-    //         setSupper(true);
-    //         break;
-    //     case "dessert":
-    //         setDessert(true);
-    //         break;
-    //     case "other":
-    //         setOther(true);
-    //         break;
-    //     default: 
-    //         setDinner(false)
-    //         setBreakfast(false)
-    //         setSupper(false)
-    //         setDessert(false)
-    //         setOther(false)
-    // }
-
     const mealType = classNames({
-        "cardDinner": true,
+        "cardDinner": false,
         "cardBreakfast": false,
         "cardSupper": false,
-        "cardDessert": false,
+        "cardDessert": true,
         "cardOther": false,
     });
+
+    const mockData = [
+        {label: "Źródło", content: "https://aniagotuje.pl/przepis/kruche-ciastka-z-cukrem"},
+        {label: "Składniki", content: "masło, śmietana 18%, jajka, cukier, mąka"},
+        {label: "Porcje", content: "78"}
+    ]
+
+    // useEffect(() => {
+    //     sourceCheck(mockData[0])
+    // })
 
 
     return (
@@ -99,12 +86,27 @@ function MealCard() {
                             </div>:""
                         }
                         <div className="meal-name">
-                            <h2>Nazwa dania</h2>
+                            <h2>Kruche ciastka z cukrem</h2>
                         </div>
                     </div>
-                    <div className="meal-details">
-
-                    </div>
+                    {cardFull ?
+                        <div className="meal-details">
+                            {mockData.map((pos) =>
+                                <div className="detail-type" key={pos.label}>
+                                    <div className="label">
+                                        <h4>{pos.label}</h4>
+                                    </div>
+                                    <div className="content">
+                                        {pos.content.includes('http') ?
+                                            <a href={pos.content} target="blank">{pos.content}</a>
+                                            :
+                                            <p>{pos.content}</p>
+                                        }
+                                    </div>
+                                </div>
+                            )}
+                        </div>: ""
+                    }
                 </div>
             </MyButton>
         </div>

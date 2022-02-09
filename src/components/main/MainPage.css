@@ -35,15 +35,15 @@
 .btn--meal-card {
   background: transparent;
   border-radius: 20px;
-  -webkit-box-shadow: 0 0 10px #13678A;
-          box-shadow: 0 0 10px #13678A;
+  -webkit-box-shadow: 0 0 10px #012030;
+          box-shadow: 0 0 10px #012030;
   -webkit-transition: 0.3s ease-out;
   transition: 0.3s ease-out;
 }
 
 .btn--meal-card:hover {
-  -webkit-box-shadow: 0 0 10px #012030;
-          box-shadow: 0 0 10px #012030;
+  -webkit-box-shadow: 0 0 10px #13678A;
+          box-shadow: 0 0 10px #13678A;
   -webkit-transition: 0.3s ease-out;
   transition: 0.3s ease-out;
 }
@@ -112,6 +112,11 @@
   padding: 5px;
   font-size: 1.5em;
   color: #13678A;
+  -webkit-box-shadow: 0 0 10px #012030;
+          box-shadow: 0 0 10px #012030;
+  border-style: none;
+  border-radius: 10px;
+  margin: 10px;
 }
 
 .log-in-container {
