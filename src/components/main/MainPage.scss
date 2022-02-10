@@ -1,12 +1,11 @@
 @import "../../commons/Commons.scss";
 
 
-
 .main-container {
     display: flex;
     justify-content: flex-start;
     flex-direction: column;
-    height: 100vh;
+    min-height: 100vh;
     background-image: linear-gradient(to top right, $dark-grey, $grey);
 
     h1 {
@@ -28,7 +27,7 @@
 .log-in-container {
     display: flex;
     justify-content: flex-end;
-    padding: 10px;
+    padding: 10px 10px 0 0 ;
 }
 
 .title-container {
@@ -47,7 +46,6 @@
     padding: 20px;
     width: calc(100% - 40px);
 }
-
 
 .pagination-bar {
     width: 100%;

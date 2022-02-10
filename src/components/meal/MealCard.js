@@ -28,7 +28,6 @@ function MealCard({
         'cardFolded': !cardFull 
     });
 
-
     let img = ""
 
     const setImg = (meatType) => {
@@ -53,22 +52,11 @@ function MealCard({
         }
     }
 
-
-    // const mealType = classNames({
-    //     "cardDinner": false,
-    //     "cardBreakfast": false,
-    //     "cardSupper": false,
-    //     "cardDessert": false,
-    //     "cardOther": false,
-    // });
-
     const mealData = [
         {label: "Źródło", content: source},
-        {label: "Składniki", content: meatType + ", " + fillers + ", " + ["cebula", "czosnek", "przecier pomidorowy"].join(", ")},
+        {label: "Składniki", content: (meatType ? (meatType + ", ") : "") + (fillers ? (fillers + ", ") : "") + (ingredients ? ingredients.join(", ") : "")},
         {label: "Porcje", content: portions}
     ]
-
-
 
     return (
         <div style={{margin:"10px"}}>
@@ -77,12 +65,13 @@ function MealCard({
                 buttonSize='btn--meal-size'
                 onClick={handleCard}
             >
-                <div className={`${classNames(cardClass)}
-                ${mealCategory=="obiad" ? "cardDinner" : ""}
-                ${mealCategory=="śniadanie" ? "cardBreakfast" : ""}
-                ${mealCategory=="kolacja" ? "cardSupper" : ""}
-                ${mealCategory=="deser" ? "cardDessert" : ""}
-                ${mealCategory=="inne" ? "cardOther" : ""}`}
+                <div className={
+                    `${classNames(cardClass)}
+                    ${mealCategory=="obiad" ? "cardDinner" : ""}
+                    ${mealCategory=="śniadanie" ? "cardBreakfast" : ""}
+                    ${mealCategory=="kolacja" ? "cardSupper" : ""}
+                    ${mealCategory=="deser" ? "cardDessert" : ""}
+                    ${mealCategory=="inne" ? "cardOther" : ""}`}
                 > 
                     <div className={mealCategory=="obiad" ? "dinnerCard" : "restMealsCard"}>
                         {mealCategory=="obiad" ?

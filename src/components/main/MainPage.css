@@ -98,7 +98,7 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  height: 100vh;
+  min-height: 100vh;
   background-image: -webkit-gradient(linear, left bottom, right top, from(#a0a0a0), to(#e2e2e2));
   background-image: linear-gradient(to top right, #a0a0a0, #e2e2e2);
 }
@@ -126,7 +126,7 @@
   -webkit-box-pack: end;
       -ms-flex-pack: end;
           justify-content: flex-end;
-  padding: 10px;
+  padding: 10px 10px 0 0;
 }
 
 .title-container {
