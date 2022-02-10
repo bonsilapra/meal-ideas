@@ -162,6 +162,59 @@
           flex-direction: row;
 }
 
+.filter-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+.filter-container select {
+  background-color: white;
+  padding: 5px;
+  font-size: 1em;
+  color: #13678A;
+  -webkit-box-shadow: 0 0 10px #012030;
+          box-shadow: 0 0 10px #012030;
+  border-style: none;
+  border-radius: 10px;
+  margin: 5px;
+  width: 150px;
+}
+
+.filter-container .option-type {
+  font-weight: 800;
+}
+
+.filter-container .option-dinner {
+  color: #FA402A;
+}
+
+.filter-container .option-breakfast {
+  color: #FAE02F;
+}
+
+.filter-container .option-supper {
+  color: #FF8628;
+}
+
+.filter-container .option-dessert {
+  color: #38D1FF;
+}
+
+.filter-container .option-soup {
+  color: #57F526;
+}
+
 .cards-container {
   display: -webkit-box;
   display: -ms-flexbox;

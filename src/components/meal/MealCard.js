@@ -54,7 +54,7 @@ function MealCard({
 
     const mealData = [
         {label: "Źródło", content: source},
-        {label: "Składniki", content: (meatType ? (meatType + ", ") : "") + (fillers ? (fillers + ", ") : "") + (ingredients ? ingredients.join(", ") : "")},
+        {label: "Składniki", content: (meatType ? (meatType=="ryba" ? "" : meatType + ", ") : "") + (fillers ? (fillers + ", ") : "") + (ingredients ? ingredients.join(", ") : "")},
         {label: "Porcje", content: portions}
     ]
 
@@ -71,7 +71,7 @@ function MealCard({
                     ${mealCategory=="śniadanie" ? "cardBreakfast" : ""}
                     ${mealCategory=="kolacja" ? "cardSupper" : ""}
                     ${mealCategory=="deser" ? "cardDessert" : ""}
-                    ${mealCategory=="inne" ? "cardOther" : ""}`}
+                    ${mealCategory=="zupa" ? "cardSoup" : ""}`}
                 > 
                     <div className={mealCategory=="obiad" ? "dinnerCard" : "restMealsCard"}>
                         {mealCategory=="obiad" ?

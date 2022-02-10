@@ -44,16 +44,36 @@ function MainPage() {
 
     const [searchMeal, setSearchMeal] = useState("")
     const [filterActive, setFilterActive] = useState(false)
-    const [filterMeal, setFilterMeal] = useState({})
+    const [filterMeal, setFilterMeal] = useState(
+        {
+            mealCategory: "",
+            meatType: "",
+            portions: "",
+            fillers: "",
+            ingredients: ""
+        }
+    )
 
-    const handleFilterMeal = (mealCategory, meatType, portions, fillers, ingredients ) => {
-        setFilterMeal({
-            mealCategory: mealCategory,
-            meatType: meatType,
-            portions: portions,
-            fillers: fillers,
-            ingredients: ingredients
-        })
+    const [mealCategory, setMealCategory] = useState("")
+    const mealCategoryHandler = (e) => {
+        setMealCategory(e.target.value)
+        setFilterMeal({...filterMeal, mealCategory: e.target.value})
+    }
+
+    const removeMealCategory = () => {
+        setMealCategory("")
+        setFilterMeal({...filterMeal, mealCategory: ""})
+    }
+
+    const [meatType, setMeatType] = useState("")
+    const meatTypeHandler = (e) => {
+        setMeatType(e.target.value)
+        setFilterMeal({...filterMeal, meatType: e.target.value})
+    }
+
+    const removeMeatType = () => {
+        setMeatType("")
+        setFilterMeal({...filterMeal, meatType: ""})
     }
 
     let mockDishes = [
@@ -97,6 +117,16 @@ function MainPage() {
             fillers:"chleb" ,
             ingredients:["cebula", "ogórek kiszony", "żółtka"]
         },
+        {
+            key:5,
+            mealCategory:"obiad", 
+            mealName:"Łosoś w sojowo-imbirowej marynacie", 
+            source:"https://kuchnialidla.pl/losos-w-sojowo-imbirowej-marynacie",
+            portions:"4",
+            meatType:"ryba" ,
+            fillers:"ryż" ,
+            ingredients:["łosoś", "imbir", "czosnek", "limonka", "sos sojowy"]
+        },
     ]
 
     return (
@@ -125,20 +155,57 @@ function MainPage() {
                         buttonSize='btn--medium'
                         onClick={() => setFilterActive(!filterActive)}
                     >
-                        <i className="fas fa-filter"></i>
+                        {filterActive ?
+                            <i className="fas fa-times"></i> :
+                            <i className="fas fa-filter"></i>
+                        }
                     </MyButton>
                 </div>
                 {filterActive ?
-                    <div className="filter-container">
-                        <MyButton
-                            buttonStyle='btn--primary'
-                            buttonShape='btn--square'
-                            buttonSize='btn--medium'
-                            onClick={()=>handleFilterMeal()}
-                        >
-                            <i className="fas fa-search"></i>
-                        </MyButton>
-                    </div> : ""
+                    <>
+                        <div className="filter-container">
+                            <select onChange={mealCategoryHandler}>
+                                <option value="">Kategoria</option>
+                                <option value="obiad" className="option-type option-dinner">Obiad</option>
+                                <option value="śniadanie" className="option-type option-breakfast">Śniadanie</option>
+                                <option value="kolacja" className="option-type option-supper">Kolacja</option>
+                                <option value="deser" className="option-type option-dessert">Deser</option>
+                                <option value="zupa" className="option-type option-soup">Zupa</option>
+                            </select>
+                            {mealCategory=="obiad" ?
+                                <select onChange={meatTypeHandler}>
+                                    <option value="">Mięso</option>
+                                    <option value="wołowina" className="option-type option-dinner">Wołowina</option>
+                                    <option value="kurczak" className="option-type option-breakfast">Kurczak</option>
+                                    <option value="wieprzowina" className="option-type option-supper">Wieprzowina</option>
+                                    <option value="ryba" className="option-type option-dessert">Ryba</option>
+                                    <option value="vege" className="option-type option-soup">Bez mięsa</option>
+                                </select> : ""
+                            }
+                        </div>
+                        {mealCategory.length !=0 ?
+                            <MyButton
+                                buttonStyle='btn--primary'
+                                buttonShape='btn--square'
+                                buttonSize='btn--small'
+                                onClick={()=>removeMealCategory()}
+                            >
+                                {mealCategory} <i className="fas fa-times"></i>
+                            </MyButton>
+                            :""
+                        }
+                        {meatType.length !=0 ?
+                            <MyButton
+                                buttonStyle='btn--primary'
+                                buttonShape='btn--square'
+                                buttonSize='btn--small'
+                                onClick={()=>removeMeatType()}
+                            >
+                                {meatType} <i className="fas fa-times"></i>
+                            </MyButton>
+                            :""
+                        }
+                    </>: ""
                 }
             </div>
             <div className="cards-container">
