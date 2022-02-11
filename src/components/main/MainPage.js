@@ -1,6 +1,7 @@
 import React, {useState, useMemo, useEffect} from "react";
 import { MyButton } from "../../commons/MyButtons";
 import MealCard from "../meal/MealCard";
+import MeatTypeButton from "./MeatTypeButton";
 import Pagination from "../pagination/Pagination.js"
 import "./MainPage.css"
 import "../../commons/Commons.css"
@@ -50,9 +51,17 @@ function MainPage() {
             meatType: "",
             portions: "",
             fillers: "",
-            ingredients: ""
+            ingredients: []
         }
     )
+    const mealCategories = [
+        {value: "", class: "", text: "Kategoria"},
+        {value: "obiad", class: "option-type option-dinner", text: "Obiad"},
+        {value: "śniadanie", class: "option-type option-breakfast", text: "Śniadanie"},
+        {value: "kolacja", class: "option-type option-supper", text: "Kolacja"},
+        {value: "deser", class: "option-type option-dessert", text: "Deser"},
+        {value: "zupa", class: "option-type option-soup", text: "Zupa"},
+    ]
 
     const [mealCategory, setMealCategory] = useState("")
     const mealCategoryHandler = (e) => {
@@ -62,19 +71,33 @@ function MainPage() {
 
     const removeMealCategory = () => {
         setMealCategory("")
-        setFilterMeal({...filterMeal, mealCategory: ""})
+        setMeatType("")
+        setFilterMeal({...filterMeal, mealCategory: "",  meatType: ""})
     }
+
+    const meatTypes = [
+        {value: "", class: "", text: "Mięso"},
+        {value: "wołowina", class: "option-type option-dinner", text: "Wołowina"},
+        {value: "kurczak", class: "option-type option-breakfast", text: "Kurczak"},
+        {value: "wieprzowina", class: "option-type option-supper", text: "Wieprzowina"},
+        {value: "ryba", class: "option-type option-dessert", text: "Ryba"},
+        {value: "vege", class: "option-type option-soup", text: "Bez mięsa"},
+    ]
 
     const [meatType, setMeatType] = useState("")
     const meatTypeHandler = (e) => {
         setMeatType(e.target.value)
         setFilterMeal({...filterMeal, meatType: e.target.value})
+        setSelected("")
     }
 
     const removeMeatType = () => {
         setMeatType("")
         setFilterMeal({...filterMeal, meatType: ""})
     }
+
+    const [selected, setSelected] = useState("");
+
 
     let mockDishes = [
         {
@@ -154,6 +177,7 @@ function MainPage() {
                         buttonShape='btn--square'
                         buttonSize='btn--medium'
                         onClick={() => setFilterActive(!filterActive)}
+                        title='Filtr'
                     >
                         {filterActive ?
                             <i className="fas fa-times"></i> :
@@ -164,47 +188,69 @@ function MainPage() {
                 {filterActive ?
                     <>
                         <div className="filter-container">
-                            <select onChange={mealCategoryHandler}>
-                                <option value="">Kategoria</option>
-                                <option value="obiad" className="option-type option-dinner">Obiad</option>
-                                <option value="śniadanie" className="option-type option-breakfast">Śniadanie</option>
-                                <option value="kolacja" className="option-type option-supper">Kolacja</option>
-                                <option value="deser" className="option-type option-dessert">Deser</option>
-                                <option value="zupa" className="option-type option-soup">Zupa</option>
+                            <select value={selected} onChange={mealCategoryHandler}>
+                                {mealCategories && mealCategories.map((mealCat) => {
+                                    return <option key={mealCat.value} value={mealCat.value} className={mealCat.class}>{mealCat.text}</option>
+                                })}
                             </select>
                             {mealCategory=="obiad" ?
-                                <select onChange={meatTypeHandler}>
-                                    <option value="">Mięso</option>
-                                    <option value="wołowina" className="option-type option-dinner">Wołowina</option>
-                                    <option value="kurczak" className="option-type option-breakfast">Kurczak</option>
-                                    <option value="wieprzowina" className="option-type option-supper">Wieprzowina</option>
-                                    <option value="ryba" className="option-type option-dessert">Ryba</option>
-                                    <option value="vege" className="option-type option-soup">Bez mięsa</option>
+                                <select value={selected} onChange={meatTypeHandler}>
+                                {meatTypes && meatTypes.map((meatType) => {
+                                    return <option key={meatType.value} value={meatType.value} className={meatType.class}>{meatType.text}</option>
+                                })}
                                 </select> : ""
                             }
                         </div>
-                        {mealCategory.length !=0 ?
-                            <MyButton
-                                buttonStyle='btn--primary'
-                                buttonShape='btn--square'
-                                buttonSize='btn--small'
-                                onClick={()=>removeMealCategory()}
-                            >
-                                {mealCategory} <i className="fas fa-times"></i>
-                            </MyButton>
-                            :""
-                        }
-                        {meatType.length !=0 ?
-                            <MyButton
-                                buttonStyle='btn--primary'
-                                buttonShape='btn--square'
-                                buttonSize='btn--small'
-                                onClick={()=>removeMeatType()}
-                            >
-                                {meatType} <i className="fas fa-times"></i>
-                            </MyButton>
-                            :""
-                        }
+                        <div className="filter-container">
+                            {mealCategory.length !=0 ?
+                                <MyButton
+                                    buttonStyle='btn--primary'
+                                    buttonShape='btn--square'
+                                    buttonSize='btn--small'
+                                    onClick={()=>removeMealCategory()}
+                                >
+                                    <i className="fas fa-utensils"></i>&nbsp;{mealCategory} <i className="fas fa-times"></i>
+                                </MyButton>
+                                :""
+                            }
+                            {meatType.length !=0 ?
+                                <MeatTypeButton meatType={meatType} removeMeatType={removeMeatType}/>
+                                :""
+                            }
+                            {/* {fillerType.length !=0 ?
+                                <MyButton
+                                    buttonStyle='btn--primary'
+                                    buttonShape='btn--square'
+                                    buttonSize='btn--small'
+                                    // onClick={()=>removeFillerType()}
+                                >
+                                    <i class="fas fa-bread-slice"></i>&nbsp;{fillerType} <i className="fas fa-times"></i>
+                                </MyButton>
+                                :""
+                            }
+                            {portions.length !=0 ?
+                                <MyButton
+                                    buttonStyle='btn--primary'
+                                    buttonShape='btn--square'
+                                    buttonSize='btn--small'
+                                    // onClick={()=>removePortions()}
+                                >
+                                    <i class="fas fa-pizza-slice"></i>&nbsp;{portions} <i className="fas fa-times"></i>
+                                </MyButton>
+                                :""
+                            }
+                            {ingredients.length !=0 ?
+                                <MyButton
+                                    buttonStyle='btn--primary'
+                                    buttonShape='btn--square'
+                                    buttonSize='btn--small'
+                                    // onClick={()=>removeIngredients(i)}
+                                >
+                                    <i class="fas fa-carrot"></i>&nbsp;{ingredients[i]} <i className="fas fa-times"></i>
+                                </MyButton>
+                                :""
+                            } */}
+                        </div>
                     </>: ""
                 }
             </div>
