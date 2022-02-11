@@ -93,6 +93,10 @@
     margin-bottom: 20px;
 }
 
-@media screen and (max-width: 770px) {
+@media screen and (max-width: 400px) {
 
+    .search-container {
+        @include flexCenter(column);
+    }
+    
 }

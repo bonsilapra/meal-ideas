@@ -64,14 +64,6 @@ function MainPage() {
         {value: "zupa", class: "option-type option-soup", text: "Zupa"},
     ]
 
-    const mealCategoryHandler = (e) => {
-        setFilterMeal({...filterMeal, mealCategory: e.target.value})
-    }
-
-    const removeMealCategory = () => {
-        setFilterMeal({...filterMeal, mealCategory: "",  meatType: []})
-    }
-
     const meatTypes = [
         {value: "", class: "", text: "Mięso"},
         {value: "wołowina", class: "option-type option-dinner", text: "Wołowina"},
@@ -81,17 +73,7 @@ function MainPage() {
         {value: "vege", class: "option-type option-soup", text: "Bez mięsa"},
     ]
 
-    const meatTypeHandler = (e) => {
-        setFilterMeal({...filterMeal, meatType: [...filterMeal.meatType, e.target.value]})
-        setSelected("")
-    }
-
-    const removeMeatType = (meatName) => {
-        setFilterMeal({...filterMeal, meatType: filterMeal.meatType.filter((e) => e != meatName )})
-    }
-
-
-// przerobić na pobieranie axiosem
+////// przerobić na pobieranie axiosem /////////////
     const portions = [
         {value: "",  text: "Porcje"},
         {value: "4", text: "4"},
@@ -118,10 +100,26 @@ function MainPage() {
         {value: "limonka", text: "Limonka"},
         {value: "mąka", text: "Mąka"},
     ]
-//
+//////////////////////////////////////////////////////
+
+    const mealCategoryHandler = (e) => {
+        setFilterMeal({...filterMeal, mealCategory: e.target.value})
+    }
+
+    const removeMealCategory = () => {
+        setFilterMeal({...filterMeal, mealCategory: "",  meatType: []})
+    }
+
+    const meatTypeHandler = (e) => {
+        setFilterMeal({...filterMeal, meatType: [...filterMeal.meatType, e.target.value]})
+    }
+
+    const removeMeatType = (meatName) => {
+        setFilterMeal({...filterMeal, meatType: filterMeal.meatType.filter((e) => e != meatName )})
+    }
+
     const portionsHandler = (e) => {
         setFilterMeal({...filterMeal, portions: e.target.value})
-        setSelected("")
     }
 
     const removePortions = () => {
@@ -130,7 +128,6 @@ function MainPage() {
 
     const fillerTypeHandler = (e) => {
         setFilterMeal({...filterMeal, fillers: [...filterMeal.fillers, e.target.value]})
-        setSelected("")
     }
 
     const removeFillerType = (fillerName) => {
@@ -139,7 +136,6 @@ function MainPage() {
 
     const ingredientTypeHandler = (e) => {
         setFilterMeal({...filterMeal, ingredients: [...filterMeal.ingredients, e.target.value]})
-        setSelected("")
     }
 
     const removeIngredients = (ingrName) => {
@@ -157,9 +153,6 @@ function MainPage() {
             }
         )
     }
-
-
-    const [selected, setSelected] = useState("");
 
 
     let mockDishes = [
@@ -262,13 +255,15 @@ function MainPage() {
                     <>
                         <div className="filter-container">
                             <div>
-                                <select value={selected} onChange={mealCategoryHandler}> 
+                                <select value="" onChange={mealCategoryHandler}> 
                                     {mealCategories && mealCategories.map((mealCat) => {
                                         return <option key={mealCat.value} value={mealCat.value} className={mealCat.class}>{mealCat.text}</option>
                                     })}
                                 </select>
+                            </div>
+                            <div>
                                 {filterMeal.mealCategory=="obiad" ?
-                                    <select value={selected} onChange={meatTypeHandler}>
+                                    <select value="" onChange={meatTypeHandler}>
                                         {meatTypes && meatTypes.map((meatType) => 
                                             <option 
                                                 key={meatType.value} 
@@ -281,7 +276,9 @@ function MainPage() {
                                         )}
                                     </select> : ""
                                 }
-                                <select value={selected} onChange={portionsHandler}> 
+                            </div>
+                            <div>
+                                <select value="" onChange={portionsHandler}> 
                                     {portions && portions
                                     .sort((a, b) => a.value.localeCompare(b.value))
                                     .map((portion) => {
@@ -290,7 +287,7 @@ function MainPage() {
                                 </select>
                             </div>
                             <div>
-                                <select value={selected} onChange={fillerTypeHandler}>
+                                <select value="" onChange={fillerTypeHandler}>
                                     {fillers && fillers
                                     .sort((a, b) => a.value.localeCompare(b.value))
                                     .map((fillerType) => 
@@ -303,7 +300,9 @@ function MainPage() {
                                         </option>
                                     )}
                                 </select>
-                                <select value={selected} onChange={ingredientTypeHandler}>
+                            </div>
+                            <div>
+                                <select value="" onChange={ingredientTypeHandler}>
                                     {ingredients && ingredients
                                     .sort((a, b) => a.value.localeCompare(b.value))
                                     .map((ingrType) => 
