@@ -8,7 +8,7 @@ import leaf from "../../images/leaf.png"
 import pig from "../../images/pig.png"
 import "./MealCard.css"
 
-function MealCard({
+function MealCardMultiMeat({
     mealCategory,
     mealName, 
     source,
@@ -28,38 +28,22 @@ function MealCard({
         'cardFolded': !cardFull 
     });
 
-    let img = ""
-
-    const setImg = (meatType) => {
-        switch (meatType) {
-            case "kurczak":
-                img = chicken;
-                break;
-            case "wołowina":
-                img = cow;
-                break;
-            case "ryba":
-                img = fish;
-                break;
-            case "vege":
-                img = leaf;
-                break;
-            case "wieprzowina":
-                img = pig;
-                break;
-            default: 
-            img = '';
-        }
-    }
-    
+    const kurczak = chicken
+    const wołowina = cow
+    const ryba = fish
+    const vege = leaf
+    const wieprzowina = pig
 
     const mealData = [
         {label: "Źródło", content: source},
         {label: "Składniki", content: 
-            (meatType ? (meatType=="ryba" ? "" : (meatType=="vege" ? "" : meatType + ", ")) : "") + 
+            (meatType ? 
+                (meatType.filter((meat) => meat.includes("ryba")).length != 0  ? 
+                "" : (meatType.filter((meat) => meat.includes("vege")).length != 0  ? 
+                    "" : meatType.join(", ") )+ ", ") 
+            : "") + 
             (fillers ? (fillers.length > 0 ? (fillers.join(", ")) + ", " : (fillers.join(", "))) : "") + 
-            (ingredients ? ingredients.join(", ") : "")
-        },
+            (ingredients ? ingredients.join(", ") : "")},
         {label: "Porcje", content: portions}
     ]
 
@@ -80,9 +64,10 @@ function MealCard({
                 > 
                     <div className={mealCategory=="obiad" ? "dinnerCard" : "restMealsCard"}>
                         {mealCategory=="obiad" ?
-                            <div className="meat-type">
-                                {setImg(meatType)}
-                                <img src={img} alt="Meat type" className="meat-type-img" />
+                            <div className="meat-type-multi">
+                                {meatType.map((meatImg) =>
+                                    <img key={meatImg} src={eval(meatImg)} alt="Meat type" className="meat-type-img-multi" />
+                                )}
                             </div>:""
                         }
                         <div className="meal-name">
@@ -113,4 +98,28 @@ function MealCard({
     )
 }
 
-export default MealCard
+export default MealCardMultiMeat
+
+
+
+
+
+    // const mealSetup = () => {
+    //     if (meatType && meatType.length == 1) {
+    //         const mealData = [
+    //             {label: "Źródło", content: source},
+    //             {label: "Składniki", content: (meatType ? (meatType[0]=="ryba" ? "" : meatType[0] + ", ") : "") + (fillers ? (fillers + ", ") : "") + (ingredients ? ingredients.join(", ") : "")},
+    //             {label: "Porcje", content: portions}
+    //         ];
+    //         let meatTypeImg = meatType[0];
+    //         return (mealData, meatTypeImg)
+    //     } else if (meatType && meatType.length > 1){
+    //         const mealData = [
+    //             {label: "Źródło", content: source},
+    //             {label: "Składniki", content: (meatType ? (meatType.filter((meat) => meat.includes("ryba")).length == 0  ? "" : "ryba, ") : "") + (fillers ? (fillers + ", ") : "") + (ingredients ? ingredients.join(", ") : "")},
+    //             {label: "Porcje", content: portions}
+    //         ];
+    //         let meatTypeImg = meatType[0];
+    //         return (mealData, meatTypeImg)
+    //     }
+    // }

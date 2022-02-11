@@ -27,10 +27,10 @@ function MeatTypeButton({meatType, removeMeatType}) {
             buttonStyle='btn--primary'
             buttonShape='btn--square'
             buttonSize='btn--small'
-            onClick={()=>removeMeatType()}
+            onClick={()=>removeMeatType(meatType)}
         >
             <i className={icon}></i> 
-            &nbsp;{meatType} <i className="fas fa-times"></i>
+            &nbsp;{meatType}&nbsp;<i className="fas fa-times"></i>
         </MyButton>
     )
 

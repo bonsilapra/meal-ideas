@@ -16,7 +16,7 @@ const SHAPES = [
 const SIZES = [
     'btn--small', 
     'btn--medium', 
-    'btn--large',
+    'btn--medium-smaller',
     'btn--large-mobile',
     'btn--meal-size'
 ];

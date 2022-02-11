@@ -46,12 +46,23 @@
         margin: 25px 10px 15px 10px;
         height: 60px;
         min-width: 60px;
-        // background-image: radial-gradient(closest-side, $primaryColor 20% , $light);
+    }
+    .meat-type-multi {
+        @include flexCenter(column);
+        flex-wrap: wrap;
+        margin: 10px 5px 5px 5px;
+        min-height: 75px;
+        min-width: 70px;
     }
 
     .meat-type-img {
         max-height: 60px;
         max-width: 60px;
+    }
+
+    .meat-type-img-multi {
+        max-height: 30px;
+        margin: 5px
     }
 }
 

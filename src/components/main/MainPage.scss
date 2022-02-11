@@ -41,6 +41,7 @@
 
 .filter-container {
     @include flexCenter(row);
+    flex-wrap: wrap;
 
     select {
         background-color: white;
@@ -52,6 +53,9 @@
         border-radius: 10px;
         margin: 10px;
         width: 120px;
+        option:disabled {
+            background-color: $grey;
+        }
     }
 
     .option-type {
@@ -87,4 +91,8 @@
     @include flexCenter(row);
     margin-top: auto;
     margin-bottom: 20px;
+}
+
+@media screen and (max-width: 770px) {
+
 }

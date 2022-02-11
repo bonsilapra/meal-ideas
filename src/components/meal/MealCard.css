@@ -73,10 +73,10 @@
   margin: 5px;
 }
 
-.btn--large {
-  padding: 0.7em 1.4em;
-  font-size: 1.4em;
-  font-weight: 800;
+.btn--medium-smaller {
+  padding: 0.45em 0.8em;
+  font-size: 1em;
+  font-weight: 600;
   margin: 5px;
 }
 
@@ -170,9 +170,35 @@
   min-width: 60px;
 }
 
+.dinnerCard .meat-type-multi {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  margin: 10px 5px 5px 5px;
+  min-height: 75px;
+  min-width: 70px;
+}
+
 .dinnerCard .meat-type-img {
   max-height: 60px;
   max-width: 60px;
+}
+
+.dinnerCard .meat-type-img-multi {
+  max-height: 30px;
+  margin: 5px;
 }
 
 .restMealsCard {

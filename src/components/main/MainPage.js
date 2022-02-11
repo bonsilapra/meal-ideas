@@ -1,6 +1,7 @@
-import React, {useState, useMemo, useEffect} from "react";
+import React, {useState, useMemo} from "react";
 import { MyButton } from "../../commons/MyButtons";
 import MealCard from "../meal/MealCard";
+import MealCardMultiMeat from "../meal/MealCardMultiMeat";
 import MeatTypeButton from "./MeatTypeButton";
 import Pagination from "../pagination/Pagination.js"
 import "./MainPage.css"
@@ -48,9 +49,9 @@ function MainPage() {
     const [filterMeal, setFilterMeal] = useState(
         {
             mealCategory: "",
-            meatType: "",
+            meatType: [],
             portions: "",
-            fillers: "",
+            fillers: [],
             ingredients: []
         }
     )
@@ -63,16 +64,12 @@ function MainPage() {
         {value: "zupa", class: "option-type option-soup", text: "Zupa"},
     ]
 
-    const [mealCategory, setMealCategory] = useState("")
     const mealCategoryHandler = (e) => {
-        setMealCategory(e.target.value)
         setFilterMeal({...filterMeal, mealCategory: e.target.value})
     }
 
     const removeMealCategory = () => {
-        setMealCategory("")
-        setMeatType("")
-        setFilterMeal({...filterMeal, mealCategory: "",  meatType: ""})
+        setFilterMeal({...filterMeal, mealCategory: "",  meatType: []})
     }
 
     const meatTypes = [
@@ -84,17 +81,83 @@ function MainPage() {
         {value: "vege", class: "option-type option-soup", text: "Bez mięsa"},
     ]
 
-    const [meatType, setMeatType] = useState("")
     const meatTypeHandler = (e) => {
-        setMeatType(e.target.value)
-        setFilterMeal({...filterMeal, meatType: e.target.value})
+        setFilterMeal({...filterMeal, meatType: [...filterMeal.meatType, e.target.value]})
         setSelected("")
     }
 
-    const removeMeatType = () => {
-        setMeatType("")
-        setFilterMeal({...filterMeal, meatType: ""})
+    const removeMeatType = (meatName) => {
+        setFilterMeal({...filterMeal, meatType: filterMeal.meatType.filter((e) => e != meatName )})
     }
+
+
+// przerobić na pobieranie axiosem
+    const portions = [
+        {value: "",  text: "Porcje"},
+        {value: "4", text: "4"},
+        {value: "2", text: "2"},
+        {value: "1", text: "1"},
+        {value: "16", text: "16"},
+        {value: "5", text: "5"},
+    ]
+
+    const fillers = [
+        {value: "",  text: "Dodatki"},
+        {value: "ziemniaki", text: "Ziemniaki"},
+        {value: "ryż", text: "Ryż"},
+        {value: "kasza", text: "Kasza"},
+        {value: "makaron", text: "Marakron"},
+        {value: "chleb", text: "Chleb"},
+    ]
+
+    const ingredients = [
+        {value: "",  text: "Składniki"},
+        {value: "cebula", text: "Cebula"},
+        {value: "czosnek", text: "Czosnek"},
+        {value: "przecier pomidorowy", text: "Przecier pomidorowy"},
+        {value: "limonka", text: "Limonka"},
+        {value: "mąka", text: "Mąka"},
+    ]
+//
+    const portionsHandler = (e) => {
+        setFilterMeal({...filterMeal, portions: e.target.value})
+        setSelected("")
+    }
+
+    const removePortions = () => {
+        setFilterMeal({...filterMeal, portions: ""})
+    }
+
+    const fillerTypeHandler = (e) => {
+        setFilterMeal({...filterMeal, fillers: [...filterMeal.fillers, e.target.value]})
+        setSelected("")
+    }
+
+    const removeFillerType = (fillerName) => {
+        setFilterMeal({...filterMeal, fillers: filterMeal.fillers.filter((e) => e != fillerName )})
+    }
+
+    const ingredientTypeHandler = (e) => {
+        setFilterMeal({...filterMeal, ingredients: [...filterMeal.ingredients, e.target.value]})
+        setSelected("")
+    }
+
+    const removeIngredients = (ingrName) => {
+        setFilterMeal({...filterMeal, ingredients: filterMeal.ingredients.filter((e) => e != ingrName )})
+    }
+
+    const clearFilters = () => {
+        setFilterMeal(
+            {
+                mealCategory: "",
+                meatType: [],
+                portions: "",
+                fillers: [],
+                ingredients: []
+            }
+        )
+    }
+
 
     const [selected, setSelected] = useState("");
 
@@ -106,8 +169,8 @@ function MainPage() {
             mealName:"Lazania", 
             source:"https://aniagotuje.pl/przepis/lazania",
             portions:"6",
-            meatType:"wieprzowina" ,
-            fillers:"makaron" ,
+            meatType:["wieprzowina", "wołowina", "kurczak", "ryba"] ,
+            fillers:["makaron"] ,
             ingredients:["cebula", "czosnek", "przecier pomidorowy"]
         },
         {
@@ -116,8 +179,8 @@ function MainPage() {
             mealName:"Lazania duża", 
             source:"https://aniagotuje.pl/przepis/lazania",
             portions:"8",
-            meatType:"wieprzowina" ,
-            fillers:"makaron" ,
+            meatType:["wieprzowina"] ,
+            fillers:["makaron"] ,
             ingredients:["cebula", "czosnek", "przecier pomidorowy"]
         },
         {
@@ -126,8 +189,8 @@ function MainPage() {
             mealName:"Kruche rogaliki z marmoladą/powidłami", 
             source:"Przepiśnik",
             portions:"32/40",
-            meatType:"" ,
-            fillers:"" ,
+            meatType:[""] ,
+            fillers:[] ,
             ingredients:["mąka pszenna", "margaryna", "cukier puder", "żółtka", "śmietana 18%" ]
         },
         {
@@ -136,8 +199,8 @@ function MainPage() {
             mealName:"Tatar", 
             source:"Z głowy",
             portions:"2",
-            meatType:"wołowina" ,
-            fillers:"chleb" ,
+            meatType:["wołowina"] ,
+            fillers:["chleb"] ,
             ingredients:["cebula", "ogórek kiszony", "żółtka"]
         },
         {
@@ -146,9 +209,19 @@ function MainPage() {
             mealName:"Łosoś w sojowo-imbirowej marynacie", 
             source:"https://kuchnialidla.pl/losos-w-sojowo-imbirowej-marynacie",
             portions:"4",
-            meatType:"ryba" ,
-            fillers:"ryż" ,
+            meatType:["ryba"] ,
+            fillers:["ryż"] ,
             ingredients:["łosoś", "imbir", "czosnek", "limonka", "sos sojowy"]
+        },
+        {
+            key:6,
+            mealCategory:"obiad", 
+            mealName:"Naleśniki", 
+            source:"Przepiśnik",
+            portions:"4",
+            meatType:["vege"] ,
+            fillers:[] ,
+            ingredients:["mąka pszenna", "jajko", "mleko"]
         },
     ]
 
@@ -188,68 +261,121 @@ function MainPage() {
                 {filterActive ?
                     <>
                         <div className="filter-container">
-                            <select value={selected} onChange={mealCategoryHandler}>
-                                {mealCategories && mealCategories.map((mealCat) => {
-                                    return <option key={mealCat.value} value={mealCat.value} className={mealCat.class}>{mealCat.text}</option>
-                                })}
-                            </select>
-                            {mealCategory=="obiad" ?
-                                <select value={selected} onChange={meatTypeHandler}>
-                                {meatTypes && meatTypes.map((meatType) => {
-                                    return <option key={meatType.value} value={meatType.value} className={meatType.class}>{meatType.text}</option>
-                                })}
-                                </select> : ""
-                            }
+                            <div>
+                                <select value={selected} onChange={mealCategoryHandler}> 
+                                    {mealCategories && mealCategories.map((mealCat) => {
+                                        return <option key={mealCat.value} value={mealCat.value} className={mealCat.class}>{mealCat.text}</option>
+                                    })}
+                                </select>
+                                {filterMeal.mealCategory=="obiad" ?
+                                    <select value={selected} onChange={meatTypeHandler}>
+                                        {meatTypes && meatTypes.map((meatType) => 
+                                            <option 
+                                                key={meatType.value} 
+                                                value={meatType.value} 
+                                                className={meatType.class} 
+                                                disabled={filterMeal.meatType.includes(meatType.value)}
+                                            >
+                                                {meatType.text}
+                                            </option>
+                                        )}
+                                    </select> : ""
+                                }
+                                <select value={selected} onChange={portionsHandler}> 
+                                    {portions && portions
+                                    .sort((a, b) => a.value.localeCompare(b.value))
+                                    .map((portion) => {
+                                        return <option key={portion.value} value={portion.value}>{portion.text}</option>
+                                    })}
+                                </select>
+                            </div>
+                            <div>
+                                <select value={selected} onChange={fillerTypeHandler}>
+                                    {fillers && fillers
+                                    .sort((a, b) => a.value.localeCompare(b.value))
+                                    .map((fillerType) => 
+                                        <option 
+                                            key={fillerType.value} 
+                                            value={fillerType.value} 
+                                            disabled={filterMeal.fillers.includes(fillerType.value)}
+                                        >
+                                            {fillerType.text}
+                                        </option>
+                                    )}
+                                </select>
+                                <select value={selected} onChange={ingredientTypeHandler}>
+                                    {ingredients && ingredients
+                                    .sort((a, b) => a.value.localeCompare(b.value))
+                                    .map((ingrType) => 
+                                        <option 
+                                            key={ingrType.value} 
+                                            value={ingrType.value} 
+                                            disabled={filterMeal.ingredients.includes(ingrType.value)}
+                                        >
+                                            {ingrType.text}
+                                        </option>
+                                    )}
+                                </select>
+                                <MyButton
+                                    buttonStyle='btn--primary'
+                                    buttonShape='btn--square'
+                                    buttonSize='btn--medium-smaller'
+                                    onClick={() => clearFilters()}
+                                    title='Wyczyść filtry'
+                                >
+                                    <i className="fas fa-ban"></i>
+                                </MyButton>
+                            </div>
                         </div>
                         <div className="filter-container">
-                            {mealCategory.length !=0 ?
+                            {filterMeal.mealCategory.length !=0 ?
                                 <MyButton
                                     buttonStyle='btn--primary'
                                     buttonShape='btn--square'
                                     buttonSize='btn--small'
                                     onClick={()=>removeMealCategory()}
                                 >
-                                    <i className="fas fa-utensils"></i>&nbsp;{mealCategory} <i className="fas fa-times"></i>
+                                    <i className="fas fa-utensils"></i>&nbsp;{filterMeal.mealCategory}&nbsp;<i className="fas fa-times"></i>
                                 </MyButton>
                                 :""
                             }
-                            {meatType.length !=0 ?
-                                <MeatTypeButton meatType={meatType} removeMeatType={removeMeatType}/>
-                                :""
+                            {filterMeal.meatType.map((meatButton) => {  
+                                return <MeatTypeButton key={meatButton} meatType={meatButton} removeMeatType={removeMeatType}/>
+                            })
                             }
-                            {/* {fillerType.length !=0 ?
+                            {filterMeal.fillers.map((fillerButton) => 
+                                <MyButton
+                                    key={fillerButton}
+                                    buttonStyle='btn--primary'
+                                    buttonShape='btn--square'
+                                    buttonSize='btn--small'
+                                    onClick={()=>removeFillerType(fillerButton)}
+                                >
+                                    <i className="fas fa-bread-slice"></i>&nbsp;{fillerButton}&nbsp;<i className="fas fa-times"></i>
+                                </MyButton>
+                            )}
+                            {filterMeal.portions.length !=0 ?
                                 <MyButton
                                     buttonStyle='btn--primary'
                                     buttonShape='btn--square'
                                     buttonSize='btn--small'
-                                    // onClick={()=>removeFillerType()}
+                                    onClick={()=>removePortions()}
                                 >
-                                    <i class="fas fa-bread-slice"></i>&nbsp;{fillerType} <i className="fas fa-times"></i>
+                                    <i className="fas fa-pizza-slice"></i>&nbsp;{filterMeal.portions}&nbsp;<i className="fas fa-times"></i>
                                 </MyButton>
                                 :""
                             }
-                            {portions.length !=0 ?
+                            {filterMeal.ingredients.map((ingrButton) => 
                                 <MyButton
+                                    key={ingrButton}
                                     buttonStyle='btn--primary'
                                     buttonShape='btn--square'
                                     buttonSize='btn--small'
-                                    // onClick={()=>removePortions()}
+                                    onClick={()=>removeIngredients(ingrButton)}
                                 >
-                                    <i class="fas fa-pizza-slice"></i>&nbsp;{portions} <i className="fas fa-times"></i>
+                                    <i className="fas fa-carrot"></i>&nbsp;{ingrButton}&nbsp;<i className="fas fa-times"></i>
                                 </MyButton>
-                                :""
-                            }
-                            {ingredients.length !=0 ?
-                                <MyButton
-                                    buttonStyle='btn--primary'
-                                    buttonShape='btn--square'
-                                    buttonSize='btn--small'
-                                    // onClick={()=>removeIngredients(i)}
-                                >
-                                    <i class="fas fa-carrot"></i>&nbsp;{ingredients[i]} <i className="fas fa-times"></i>
-                                </MyButton>
-                                :""
-                            } */}
+                            )}
                         </div>
                     </>: ""
                 }
@@ -265,11 +391,11 @@ function MainPage() {
                         }
                     })
                     .filter((meal) => {
-                        if (!filterMeal.meatType || filterMeal.meatType == "") {
+                        if (!filterMeal.meatType || filterMeal.meatType.length == 0) {
                             return true
                         } 
-                        else if (filterMeal.meatType == meal.meatType) {
-                            return true
+                        else  {
+                            return filterMeal.meatType.every(meat => meal.meatType.includes(meat))
                         }
                     })
                     .filter((meal) => {
@@ -281,12 +407,12 @@ function MainPage() {
                         }
                     })
                     .filter((meal) => {
-                        if (!filterMeal.fillers || filterMeal.fillers == "") {
+                        if (!filterMeal.fillers || filterMeal.fillers.length == 0) {
                             return true
                         } 
-                        else if (filterMeal.fillers == meal.fillers) {
-                            return true
-                        }
+                        else { 
+                            return filterMeal.fillers.every(fill => meal.fillers.includes(fill))
+                        } 
                     })
                     .filter((meal) => {
                         if (!filterMeal.ingredients || filterMeal.ingredients.length == 0) {
@@ -299,16 +425,27 @@ function MainPage() {
                     })
                     .map((meal) => {
                         return(
-                            <MealCard 
-                                key={meal.key} 
-                                mealCategory={meal.mealCategory} 
-                                mealName={meal.mealName}  
-                                source={meal.source} 
-                                portions={meal.portions} 
-                                meatType={meal.meatType}  
-                                fillers={meal.fillers}  
-                                ingredients={meal.ingredients} 
-                            />
+                            (meal.meatType && meal.meatType.length == 1) ?
+                                <MealCard 
+                                    key={meal.key} 
+                                    mealCategory={meal.mealCategory} 
+                                    mealName={meal.mealName}  
+                                    source={meal.source} 
+                                    portions={meal.portions} 
+                                    meatType={meal.meatType[0]}  
+                                    fillers={meal.fillers}  
+                                    ingredients={meal.ingredients} 
+                                />:
+                                <MealCardMultiMeat 
+                                    key={meal.key} 
+                                    mealCategory={meal.mealCategory} 
+                                    mealName={meal.mealName}  
+                                    source={meal.source} 
+                                    portions={meal.portions} 
+                                    meatType={meal.meatType}  
+                                    fillers={meal.fillers}  
+                                    ingredients={meal.ingredients} 
+                                />
                         )
                     })
                 }
