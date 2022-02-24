@@ -7,6 +7,12 @@ import Pagination from "../pagination/Pagination.js"
 import "./MainPage.css"
 import "../../commons/Commons.css"
 import myAxios from '../../commons/MyAxios';
+import Logout from '../login/Logout';
+import AddMeal from '../adding/AddMeal';
+import AddFiller from '../adding/AddFiller';
+import AddIngredient from '../adding/AddIngredient';
+
+
 // import data from '../pagination/data/mock-data.json';
 
 
@@ -170,7 +176,7 @@ function MainPage() {
     }
 
     const isLogged = sessionStorage.getItem('isLogged')
-    
+
     let mockDishes = [
         {
             key:1,
@@ -236,17 +242,12 @@ function MainPage() {
 
     return (
         <div className="main-container">
-            <div className="log-in-container">
-                {/* <MyButton
-                    buttonStyle='btn--primary'
-                    buttonShape='btn--square'
-                    buttonSize='btn--medium'
-                    aria-label='zaloguj'
-                    onClick={showLoginModal}
-                >
-                    ZALOGUJ
-                </MyButton> */}
-            </div>
+            {isLogged ?
+                <div className="log-in-container">
+                    <Logout />
+                </div>:
+                ""
+            }
             <div className="title-container">
                 <h1>Co dziś jemy?</h1>
                 <div className="search-container">
@@ -269,6 +270,14 @@ function MainPage() {
                         }
                     </MyButton>
                 </div>
+                {isLogged ?
+                    <div className="add-meal-container">
+                        <AddMeal />
+                        <AddFiller />
+                        <AddIngredient />
+                    </div>:
+                    ""
+                }
                 {filterActive ?
                     <>
                         <div className="filter-container">

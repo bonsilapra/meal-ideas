@@ -9,6 +9,7 @@
     background-image: linear-gradient(to top right, $dark-grey, $grey);
 
     h1 {
+        margin-top: 20px;
         padding: 20px;
         color: $primaryColor;
     }
@@ -91,6 +92,10 @@
     @include flexCenter(row);
     margin-top: auto;
     margin-bottom: 20px;
+}
+
+.add-meal-container {
+    @include flexCenter(row);
 }
 
 @media screen and (max-width: 400px) {
