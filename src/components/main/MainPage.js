@@ -1,4 +1,4 @@
-import React, {useState, useMemo} from "react";
+import React, {useState, useMemo, useEffect} from "react";
 import { MyButton } from "../../commons/MyButtons";
 import MealCard from "../meal/MealCard";
 import MealCardMultiMeat from "../meal/MealCardMultiMeat";
@@ -6,43 +6,13 @@ import MeatTypeButton from "./MeatTypeButton";
 import Pagination from "../pagination/Pagination.js"
 import "./MainPage.css"
 import "../../commons/Commons.css"
-import data from '../pagination/data/mock-data.json';
+import myAxios from '../../commons/MyAxios';
+// import data from '../pagination/data/mock-data.json';
 
 
 function MainPage() {
 
-    // const [PageSize, setPageSize] = useState(8);
 
-    // const handlePageSize = () => {
-    //     if (window.innerWidth <= 795) {
-    //         setPageSize(8);
-    //     } 
-    //     else if ( 795 < window.innerWidth <= 1165) {
-    //         setPageSize(10);
-    //     } 
-    //     else if (1165 < window.innerWidth <= 1535) {
-    //         setPageSize(12);
-    //     } 
-    //     else if (1535 < window.innerWidth) {
-    //         setPageSize(14);
-    //     } else {
-    //         setPageSize(6);
-    //     }
-    // };
-    // useEffect(() => {
-    //     handlePageSize();
-    // }, []);
-    // window.addEventListener('resize', handlePageSize);
-
-    let PageSize = 18;
-
-    const [currentPage, setCurrentPage] = useState(1);
-
-    const currentTableData = useMemo(() => {
-        const firstPageIndex = (currentPage - 1) * PageSize;
-        const lastPageIndex = firstPageIndex + PageSize;
-        return data.slice(firstPageIndex, lastPageIndex);
-    }, [currentPage]);
 
     const [searchMeal, setSearchMeal] = useState("")
     const [filterActive, setFilterActive] = useState(false)
@@ -73,37 +43,83 @@ function MainPage() {
         {value: "vege", class: "option-type option-soup", text: "Bez mięsa"},
     ]
 
-////// przerobić na pobieranie axiosem /////////////
-    const portions = [
-        {value: "",  text: "Porcje"},
-        {value: "4", text: "4"},
-        {value: "2", text: "2"},
-        {value: "1", text: "1"},
-        {value: "16", text: "16"},
-        {value: "5", text: "5"},
-    ]
+    const [recipes, setRecipes]=useState([]);
+    const [mealFillers, setFillers]=useState([]);
+    const [mealIngredients, setIngredients]=useState([]);
+    const [isError, setError]=useState(false);
 
-    const fillers = [
-        {value: "",  text: "Dodatki"},
-        {value: "ziemniaki", text: "Ziemniaki"},
-        {value: "ryż", text: "Ryż"},
-        {value: "kasza", text: "Kasza"},
-        {value: "makaron", text: "Marakron"},
-        {value: "chleb", text: "Chleb"},
-    ]
+    useEffect(()=> {
+        myAxios.get(`recipe`)
+            .then(res => {
+                const recipes = res.data;
+                setRecipes(recipes);
+                }
+            )
+            .catch(error => {
+                setError(true);
+                }
+            )
+        myAxios.get(`filler`)
+            .then(res => {
+                const mealFillers = res.data;
+                setFillers(mealFillers);
+                }
+            )
+            .catch(error => {
+                setError(true);
+                }
+            )
+        myAxios.get(`ingredient`)
+            .then(res => {
+                const mealIngredients = res.data;
+                setIngredients(mealIngredients);
+                }
+            )
+            .catch(error => {
+                setError(true);
+                }
+            )
+    },[]);
 
-    const ingredients = [
-        {value: "",  text: "Składniki"},
-        {value: "cebula", text: "Cebula"},
-        {value: "czosnek", text: "Czosnek"},
-        {value: "przecier pomidorowy", text: "Przecier pomidorowy"},
-        {value: "limonka", text: "Limonka"},
-        {value: "mąka", text: "Mąka"},
-    ]
-//////////////////////////////////////////////////////
+    let PageSize = 18;
+
+    const [currentPage, setCurrentPage] = useState(1);
+
+    const currentTableData = useMemo(() => {
+        const firstPageIndex = (currentPage - 1) * PageSize;
+        const lastPageIndex = firstPageIndex + PageSize;
+        return recipes.slice(firstPageIndex, lastPageIndex);
+    }, [currentPage]);
+
+
+    const portionsValues = 
+        recipes && recipes.map((recipe) => {
+            return {value: recipe.yield, text: recipe.yield}
+        })
+    
+    const portions = [{value: "",  text: "Porcje"}].concat(portionsValues)
+
+    const fillersValues = 
+        mealFillers && mealFillers.map((filler) => {
+            return {value: filler, text: filler.charAt(0).toUpperCase() + filler.slice(1)}
+        })
+
+    const fillers = [{value: "",  text: "Dodatki"}].concat(fillersValues)
+
+    const ingredientsValues = 
+        mealIngredients && mealIngredients.map((ingr) => {
+            return {value: ingr, text: ingr.charAt(0).toUpperCase() + ingr.slice(1)}
+        })
+
+    const ingredients = [{value: "",  text: "Składniki"}].concat(ingredientsValues)
+
 
     const mealCategoryHandler = (e) => {
-        setFilterMeal({...filterMeal, mealCategory: e.target.value})
+            if (e.target.value != "obiad") {
+                setFilterMeal({...filterMeal, mealCategory: e.target.value,  meatType: []})
+            } else {
+                setFilterMeal({...filterMeal, mealCategory: e.target.value})
+            }
     }
 
     const removeMealCategory = () => {
@@ -225,6 +241,7 @@ function MainPage() {
                     buttonStyle='btn--primary'
                     buttonShape='btn--square'
                     buttonSize='btn--medium'
+                    aria-label='zaloguj'
                 >
                     ZALOGUJ
                 </MyButton>
@@ -333,6 +350,7 @@ function MainPage() {
                                     buttonShape='btn--square'
                                     buttonSize='btn--small'
                                     onClick={()=>removeMealCategory()}
+                                    aria-label='Kategoria posiłku'
                                 >
                                     <i className="fas fa-utensils"></i>&nbsp;{filterMeal.mealCategory}&nbsp;<i className="fas fa-times"></i>
                                 </MyButton>
@@ -349,6 +367,7 @@ function MainPage() {
                                     buttonShape='btn--square'
                                     buttonSize='btn--small'
                                     onClick={()=>removeFillerType(fillerButton)}
+                                    aria-label='Kategoria dodatku'
                                 >
                                     <i className="fas fa-bread-slice"></i>&nbsp;{fillerButton}&nbsp;<i className="fas fa-times"></i>
                                 </MyButton>
@@ -359,6 +378,7 @@ function MainPage() {
                                     buttonShape='btn--square'
                                     buttonSize='btn--small'
                                     onClick={()=>removePortions()}
+                                    aria-label='Ilość porcji'
                                 >
                                     <i className="fas fa-pizza-slice"></i>&nbsp;{filterMeal.portions}&nbsp;<i className="fas fa-times"></i>
                                 </MyButton>
@@ -371,6 +391,7 @@ function MainPage() {
                                     buttonShape='btn--square'
                                     buttonSize='btn--small'
                                     onClick={()=>removeIngredients(ingrButton)}
+                                    aria-label='Składniki'
                                 >
                                     <i className="fas fa-carrot"></i>&nbsp;{ingrButton}&nbsp;<i className="fas fa-times"></i>
                                 </MyButton>
@@ -379,13 +400,27 @@ function MainPage() {
                     </>: ""
                 }
             </div>
+                {/* {currentTableData
+                    .filter((val) => {
+                        if (searchMeal == "") {
+                            return val
+                        } else if (val.first_name.toLowerCase().includes(searchMeal.toLowerCase())) {
+                            return val
+                        }
+                    })
+                    .map(item => {
+                        return (
+                            <MealCard key={item.id} mealName={item.first_name} />
+                        )
+                    })
+                } */}
             <div className="cards-container">
-                {mockDishes
+                {recipes
                     .filter((meal) => {
                         if (!filterMeal.mealCategory || filterMeal.mealCategory == "") {
                             return true
                         } 
-                        else if (filterMeal.mealCategory == meal.mealCategory) {
+                        else if (filterMeal.mealCategory == meal.category) {
                             return true
                         }
                     })
@@ -394,14 +429,14 @@ function MainPage() {
                             return true
                         } 
                         else  {
-                            return filterMeal.meatType.every(meat => meal.meatType.includes(meat))
+                            return filterMeal.meatType.every(meat => meal.meats.includes(meat))
                         }
                     })
                     .filter((meal) => {
                         if (!filterMeal.portions || filterMeal.portions == "") {
                             return true
                         } 
-                        else if (filterMeal.portions == meal.portions) {
+                        else if (filterMeal.portions == meal.yield) {
                             return true
                         }
                     })
@@ -420,53 +455,38 @@ function MainPage() {
                         else { 
                             return filterMeal.ingredients.every(ingr => meal.ingredients.includes(ingr))
                         } 
-                        
                     })
                     .map((meal) => {
                         return(
-                            (meal.meatType && meal.meatType.length == 1) ?
+                            (meal.meats && meal.meats.length == 1) ?
                                 <MealCard 
-                                    key={meal.key} 
-                                    mealCategory={meal.mealCategory} 
-                                    mealName={meal.mealName}  
+                                    key={meal.id} 
+                                    mealCategory={meal.category} 
+                                    mealName={meal.name}  
                                     source={meal.source} 
-                                    portions={meal.portions} 
-                                    meatType={meal.meatType[0]}  
+                                    portions={meal.yield} 
+                                    meatType={meal.meats[0]}  
                                     fillers={meal.fillers}  
                                     ingredients={meal.ingredients} 
                                 />:
                                 <MealCardMultiMeat 
-                                    key={meal.key} 
-                                    mealCategory={meal.mealCategory} 
-                                    mealName={meal.mealName}  
+                                    key={meal.id} 
+                                    mealCategory={meal.category} 
+                                    mealName={meal.name}  
                                     source={meal.source} 
-                                    portions={meal.portions} 
-                                    meatType={meal.meatType}  
+                                    portions={meal.yield} 
+                                    meatType={meal.meats}  
                                     fillers={meal.fillers}  
                                     ingredients={meal.ingredients} 
                                 />
                         )
                     })
                 }
-                {/* {currentTableData
-                    .filter((val) => {
-                        if (searchMeal == "") {
-                            return val
-                        } else if (val.first_name.toLowerCase().includes(searchMeal.toLowerCase())) {
-                            return val
-                        }
-                    })
-                    .map(item => {
-                        return (
-                            <MealCard key={item.id} mealName={item.first_name} />
-                        )
-                    })
-                } */}
             </div>
                 <Pagination
                     className="pagination-bar"
                     currentPage={currentPage}
-                    totalCount={data.length}
+                    totalCount={recipes.length}
                     pageSize={PageSize}
                     onPageChange={page => setCurrentPage(page)}
                 />

@@ -53,6 +53,7 @@ function MealCardMultiMeat({
                 buttonStyle='btn--meal-card'
                 buttonSize='btn--meal-size'
                 onClick={handleCard}
+                aria-label={mealName}
             >
                 <div className={
                     `${classNames(cardClass)}
@@ -83,7 +84,7 @@ function MealCardMultiMeat({
                                     </div>
                                     <div className="content">
                                         {pos.content.includes('http') ?
-                                            <a href={pos.content} target="blank">{pos.content}</a>
+                                            <a href={pos.content} target='_blank' rel='noreferrer'>{pos.content}</a>
                                             :
                                             <p>{pos.content}</p>
                                         }
@@ -99,27 +100,3 @@ function MealCardMultiMeat({
 }
 
 export default MealCardMultiMeat
-
-
-
-
-
-    // const mealSetup = () => {
-    //     if (meatType && meatType.length == 1) {
-    //         const mealData = [
-    //             {label: "Źródło", content: source},
-    //             {label: "Składniki", content: (meatType ? (meatType[0]=="ryba" ? "" : meatType[0] + ", ") : "") + (fillers ? (fillers + ", ") : "") + (ingredients ? ingredients.join(", ") : "")},
-    //             {label: "Porcje", content: portions}
-    //         ];
-    //         let meatTypeImg = meatType[0];
-    //         return (mealData, meatTypeImg)
-    //     } else if (meatType && meatType.length > 1){
-    //         const mealData = [
-    //             {label: "Źródło", content: source},
-    //             {label: "Składniki", content: (meatType ? (meatType.filter((meat) => meat.includes("ryba")).length == 0  ? "" : "ryba, ") : "") + (fillers ? (fillers + ", ") : "") + (ingredients ? ingredients.join(", ") : "")},
-    //             {label: "Porcje", content: portions}
-    //         ];
-    //         let meatTypeImg = meatType[0];
-    //         return (mealData, meatTypeImg)
-    //     }
-    // }

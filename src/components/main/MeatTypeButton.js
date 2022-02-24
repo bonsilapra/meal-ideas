@@ -28,6 +28,7 @@ function MeatTypeButton({meatType, removeMeatType}) {
             buttonShape='btn--square'
             buttonSize='btn--small'
             onClick={()=>removeMeatType(meatType)}
+            aria-label='Rodzaj mięsa'
         >
             <i className={icon}></i> 
             &nbsp;{meatType}&nbsp;<i className="fas fa-times"></i>

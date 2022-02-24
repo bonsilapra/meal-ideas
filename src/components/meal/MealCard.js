@@ -69,6 +69,7 @@ function MealCard({
                 buttonStyle='btn--meal-card'
                 buttonSize='btn--meal-size'
                 onClick={handleCard}
+                aria-label={mealName}
             >
                 <div className={
                     `${classNames(cardClass)}
@@ -98,7 +99,7 @@ function MealCard({
                                     </div>
                                     <div className="content">
                                         {pos.content.includes('http') ?
-                                            <a href={pos.content} target="blank">{pos.content}</a>
+                                            <a href={pos.content} target='_blank' rel='noreferrer'>{pos.content}</a>
                                             :
                                             <p>{pos.content}</p>
                                         }
