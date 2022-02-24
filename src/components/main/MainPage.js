@@ -12,8 +12,6 @@ import myAxios from '../../commons/MyAxios';
 
 function MainPage() {
 
-
-
     const [searchMeal, setSearchMeal] = useState("")
     const [filterActive, setFilterActive] = useState(false)
     const [filterMeal, setFilterMeal] = useState(
@@ -25,6 +23,7 @@ function MainPage() {
             ingredients: []
         }
     )
+
     const mealCategories = [
         {value: "", class: "", text: "Kategoria"},
         {value: "obiad", class: "option-type option-dinner", text: "Obiad"},
@@ -170,7 +169,8 @@ function MainPage() {
         )
     }
 
-
+    const isLogged = sessionStorage.getItem('isLogged')
+    
     let mockDishes = [
         {
             key:1,
@@ -237,14 +237,15 @@ function MainPage() {
     return (
         <div className="main-container">
             <div className="log-in-container">
-                <MyButton
+                {/* <MyButton
                     buttonStyle='btn--primary'
                     buttonShape='btn--square'
                     buttonSize='btn--medium'
                     aria-label='zaloguj'
+                    onClick={showLoginModal}
                 >
                     ZALOGUJ
-                </MyButton>
+                </MyButton> */}
             </div>
             <div className="title-container">
                 <h1>Co dziś jemy?</h1>
