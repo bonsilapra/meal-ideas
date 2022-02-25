@@ -478,7 +478,8 @@ function MainPage() {
                                     portions={meal.yield} 
                                     meatType={meal.meats[0]}  
                                     fillers={meal.fillers}  
-                                    ingredients={meal.ingredients} 
+                                    ingredients={meal.ingredients}
+                                    isLogged={isLogged} 
                                 />:
                                 <MealCardMultiMeat 
                                     key={meal.id} 
@@ -489,6 +490,7 @@ function MainPage() {
                                     meatType={meal.meats}  
                                     fillers={meal.fillers}  
                                     ingredients={meal.ingredients} 
+                                    isLogged={isLogged} 
                                 />
                         )
                     })

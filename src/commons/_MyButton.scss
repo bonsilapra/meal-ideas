@@ -29,7 +29,6 @@
         color: $grey;
         box-shadow: 0 0 10px $dark;
         cursor: default;
-
     }
     &disabled:hover {
         opacity: 50%;
@@ -37,6 +36,19 @@
         color: $grey;
         box-shadow: 0 0 10px $dark;
         cursor: default;
+    }
+}
+
+.btn--primary--rev {
+    display: flex;
+    background-color: $light;
+    color: $primaryColor;
+    text-shadow: 0 0 10px $primaryColor;
+    transition: 0.3s ease-out;
+    &:hover {
+        color: $dark;
+        transition: 0.3s ease-out;
+        text-shadow: 0 0 20px $primaryColor;
     }
 }
 
@@ -106,6 +118,7 @@
     font-size: 1em;
     font-weight: 600;
     margin: 5px;
+
 }
 
 .btn--medium-smaller {

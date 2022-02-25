@@ -15,7 +15,8 @@ function MealCardMultiMeat({
     portions,
     meatType,
     fillers, 
-    ingredients
+    ingredients,
+    isLogged
 }) {
 
     const [cardFull, setCardFull] = useState(false)
@@ -73,6 +74,16 @@ function MealCardMultiMeat({
                         }
                         <div className="meal-name">
                             <h2>{mealName}</h2>
+                            {isLogged ? 
+                                <MyButton
+                                    buttonStyle='btn--primary--rev'
+                                    buttonSize='btn--medium'
+                                    // onClick={removeMeal}
+                                    title="Usuń posiłek"
+                                >
+                                    &nbsp;<i className="fas fa-trash"></i>
+                                </MyButton> : ""
+                            }  
                         </div>
                     </div>
                     {cardFull ?

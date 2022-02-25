@@ -50,6 +50,24 @@
   cursor: default;
 }
 
+.btn--primary--rev {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  background-color: #F2F2F2;
+  color: #13678A;
+  text-shadow: 0 0 10px #13678A;
+  -webkit-transition: 0.3s ease-out;
+  transition: 0.3s ease-out;
+}
+
+.btn--primary--rev:hover {
+  color: #012030;
+  -webkit-transition: 0.3s ease-out;
+  transition: 0.3s ease-out;
+  text-shadow: 0 0 20px #13678A;
+}
+
 .btn--secondary {
   background-color: #a0a0a0;
   color: #F2F2F2;

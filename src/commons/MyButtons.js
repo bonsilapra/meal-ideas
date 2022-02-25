@@ -3,6 +3,7 @@ import './Commons.css';
 
 const STYLES = [
     'btn--primary', 
+    'btn--primary--rev', 
     'btn--secondary',
     'btn--meal-card',
     'btn--object'
