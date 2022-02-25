@@ -1,27 +1,103 @@
 @import "../../commons/Commons.scss";
 
 
-.login-container {
-    @include flexCenter(column);
-    min-height: 100vh;
-    background-image: linear-gradient(to top right, $dark-grey, $grey);
+.add-meal-button {
+    padding: 5px;
+}
 
-    h1 {
-        padding: 20px;
+.modal {
+    position: fixed;
+    top: 5%;
+    left: 50%;
+    transform: translate(-50%, 0);
+    border: 1px solid #ccc;
+    background: $light;
+    overflow: auto;
+    border-radius: 10px;
+    outline: none;
+    padding: 20px;
+    max-height: 90vh;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(7, 40, 54, 0.75);
+}
+
+.ReactModal__Overlay {
+    opacity: 0;
+    transition: opacity 200ms ease-in-out;
+}
+
+.ReactModal__Overlay--after-open {
+    opacity: 1;
+}
+
+.ReactModal__Overlay--before-close {
+    opacity: 0;
+}
+
+
+.modal-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    min-width: 300px;
+        h2 {
+            margin-bottom: 10px;
+            color: $primaryColor;
+        }
+}
+
+.modal-inputs {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
+    label {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 10px;
         color: $primaryColor;
-    }
 
+    }
     input {
         padding: 5px;
-        font-size: 1.5em;
+        font-size: 1em;
         color: $primaryColor;
-        box-shadow: 0 0 10px $dark;
+        box-shadow: 0 0 5px $dark;
         border-style: none;
         border-radius: 10px;
-        margin: 10px
+        margin: 5px 0 10px 0;
+    }
+
+    select {
+        background-color: white;
+        padding: 5px ;
+        font-size: 1em;
+        color: $primaryColor;
+        box-shadow: 0 0 5px $dark;
+        border-style: none;
+        border-radius: 10px;
+        margin: 5px 0 10px 0;
+        width: 100%;
+        option:disabled {
+            background-color: $grey;
+        }
+    }
+
+    .modal-select-buttons {
+        @include flexCenter(row);
+        flex-wrap: wrap;
     }
 }
 
-.add-meal-button {
-    padding: 5px;
+.modal-buttons {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 10px
 }

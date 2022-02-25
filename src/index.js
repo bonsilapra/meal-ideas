@@ -7,18 +7,28 @@ import {
 import './index.css';
 import MainPage from './components/main/MainPage';
 import Login from './components/login/Login';
-import Logout from './components/login/Logout';
+
 
 
 
 ReactDOM.render(
-  <BrowserRouter>
-    <Routes>
-      <Route path="/" element={<MainPage />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/logout" element={<Logout />} />
-    </Routes>
-  </BrowserRouter>,
+  
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<MainPage />} />
+        <Route path="/login" element={<Login />} />
+        <Route
+        path="*"
+        element={
+          <main style={{ paddingTop: "15rem", paddingBottom: "10rem" }}>
+            <h2 style = {{textAlign: "center"}}> 
+              Tu nic nie ma!
+            </h2>
+          </main>
+        }
+      />
+      </Routes>
+    </BrowserRouter>,
   document.getElementById('root')
 );
 

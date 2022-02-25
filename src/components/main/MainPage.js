@@ -1,4 +1,4 @@
-import React, {useState, useMemo, useEffect} from "react";
+import React, {useState, useMemo, useEffect, useContext} from "react";
 import { MyButton } from "../../commons/MyButtons";
 import MealCard from "../meal/MealCard";
 import MealCardMultiMeat from "../meal/MealCardMultiMeat";
@@ -13,10 +13,12 @@ import AddFiller from '../adding/AddFiller';
 import AddIngredient from '../adding/AddIngredient';
 
 
+
 // import data from '../pagination/data/mock-data.json';
 
 
 function MainPage() {
+
 
     const [searchMeal, setSearchMeal] = useState("")
     const [filterActive, setFilterActive] = useState(false)
@@ -52,6 +54,11 @@ function MainPage() {
     const [mealFillers, setFillers]=useState([]);
     const [mealIngredients, setIngredients]=useState([]);
     const [isError, setError]=useState(false);
+
+    const addRecipe = (recipe) => {
+        setRecipes([...recipes, recipe])
+    }
+
 
     useEffect(()=> {
         myAxios.get(`recipe`)
@@ -254,6 +261,7 @@ function MainPage() {
                     <input 
                         type="text" 
                         placeholder="Szukaj"
+                        name="Szukaj posiłku"
                         onChange={event => {setSearchMeal(event.target.value)}}
                     >
                     </input>
@@ -272,7 +280,7 @@ function MainPage() {
                 </div>
                 {isLogged ?
                     <div className="add-meal-container">
-                        <AddMeal />
+                        <AddMeal mealCategories={mealCategories} meatTypes={meatTypes} fillers={fillers} ingredients={ingredients} addRecipe={addRecipe}/>
                         <AddFiller />
                         <AddIngredient />
                     </div>:
@@ -410,22 +418,15 @@ function MainPage() {
                     </>: ""
                 }
             </div>
-                {/* {currentTableData
+            <div className="cards-container">
+                {recipes
                     .filter((val) => {
                         if (searchMeal == "") {
                             return val
-                        } else if (val.first_name.toLowerCase().includes(searchMeal.toLowerCase())) {
+                        } else if (val.name.toLowerCase().includes(searchMeal.toLowerCase())) {
                             return val
                         }
                     })
-                    .map(item => {
-                        return (
-                            <MealCard key={item.id} mealName={item.first_name} />
-                        )
-                    })
-                } */}
-            <div className="cards-container">
-                {recipes
                     .filter((meal) => {
                         if (!filterMeal.mealCategory || filterMeal.mealCategory == "") {
                             return true

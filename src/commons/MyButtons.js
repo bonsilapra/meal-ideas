@@ -3,14 +3,14 @@ import './Commons.css';
 
 const STYLES = [
     'btn--primary', 
+    'btn--secondary',
     'btn--meal-card',
+    'btn--object'
 ];
 
 
 const SHAPES = [
     'btn--square',
-    'btn--round', 
-    'btn--mobile'
 ];
 
 const SIZES = [

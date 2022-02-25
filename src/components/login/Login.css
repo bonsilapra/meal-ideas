@@ -32,6 +32,57 @@
   transition: 0.3s ease-out;
 }
 
+.btn--primary:disabled {
+  opacity: 50%;
+  background-color: #13678A;
+  color: #e2e2e2;
+  -webkit-box-shadow: 0 0 10px #012030;
+          box-shadow: 0 0 10px #012030;
+  cursor: default;
+}
+
+.btn--primarydisabled:hover {
+  opacity: 50%;
+  background-color: #13678A;
+  color: #e2e2e2;
+  -webkit-box-shadow: 0 0 10px #012030;
+          box-shadow: 0 0 10px #012030;
+  cursor: default;
+}
+
+.btn--secondary {
+  background-color: #a0a0a0;
+  color: #F2F2F2;
+  -webkit-box-shadow: 0 0 10px #a0a0a0;
+          box-shadow: 0 0 10px #a0a0a0;
+  -webkit-transition: 0.3s ease-out;
+  transition: 0.3s ease-out;
+}
+
+.btn--secondary:hover {
+  background-color: #e2e2e2;
+  color: #13678A;
+  -webkit-transition: 0.3s ease-out;
+  transition: 0.3s ease-out;
+  -webkit-box-shadow: 0 0 10px #13678A;
+          box-shadow: 0 0 10px #13678A;
+}
+
+.btn--secondary:focus {
+  background-color: #13678A;
+  color: #e2e2e2;
+  -webkit-box-shadow: 0 0 10px #012030;
+          box-shadow: 0 0 10px #012030;
+  -webkit-transition: 0.3s ease-out;
+  transition: 0.3s ease-out;
+}
+
+.btn--object {
+  background-color: #13678A;
+  color: #e2e2e2;
+  cursor: default;
+}
+
 .btn--meal-card {
   background: transparent;
   border-radius: 20px;
@@ -57,6 +108,12 @@
 
 .btn--square {
   border-radius: 10px;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
 }
 
 .btn--small {

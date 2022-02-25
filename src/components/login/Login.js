@@ -15,12 +15,12 @@ function Login() {
             }
         
     )
+    let loginFormData = new FormData();
+    loginFormData.append('username', log.login);
+    loginFormData.append('password', log.password);
 
     const login = () => {
-        MyAxios.post(`login`, {
-            username: log.login,
-            password: log.password,
-        })
+        MyAxios.post(`login`, loginFormData, {headers: { "Content-Type": "multipart/form-data" }})
             .then((response) => {
                 setLog({...log, isLogged: true})
                 sessionStorage.setItem('isLogged', true);

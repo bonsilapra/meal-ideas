@@ -23,6 +23,46 @@
         box-shadow: 0 0 10px $dark;
         transition: 0.3s ease-out;
     }
+    &:disabled {
+        opacity: 50%;
+        background-color: $primaryColor;
+        color: $grey;
+        box-shadow: 0 0 10px $dark;
+        cursor: default;
+
+    }
+    &disabled:hover {
+        opacity: 50%;
+        background-color: $primaryColor;
+        color: $grey;
+        box-shadow: 0 0 10px $dark;
+        cursor: default;
+    }
+}
+
+.btn--secondary {
+    background-color: $dark-grey;
+    color: $light;
+    box-shadow: 0 0 10px $dark-grey;
+    transition: 0.3s ease-out;
+    &:hover {
+        background-color: $grey;
+        color: $primaryColor;
+        transition: 0.3s ease-out;
+        box-shadow: 0 0 10px $primaryColor;
+    }
+    &:focus {
+        background-color: $primaryColor;
+        color: $grey;
+        box-shadow: 0 0 10px $dark;
+        transition: 0.3s ease-out;
+    }
+}
+
+.btn--object {
+    background-color: $primaryColor;
+    color: $grey;
+    cursor: default;
 }
 
 
@@ -47,7 +87,10 @@
 
 .btn--square {
     border-radius: 10px;
+    width: fit-content;
+    align-self: center;
 }
+
 
 // SIZE
 
