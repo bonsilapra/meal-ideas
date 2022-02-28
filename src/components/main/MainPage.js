@@ -402,7 +402,7 @@ function MainPage() {
                 </div>
                 :
                 <div className="cards-container">
-                    {currentTableData
+                    {recipes
                         .filter((val) => {
                             if (searchMeal == "") {
                                 return val
