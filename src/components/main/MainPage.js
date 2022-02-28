@@ -15,10 +15,6 @@ import EditIngrOrFill from "../adding/EditIngrOrFill";
 
 
 
-
-// import data from '../pagination/data/mock-data.json';
-
-
 function MainPage() {
 
 
@@ -406,7 +402,7 @@ function MainPage() {
                 </div>
                 :
                 <div className="cards-container">
-                    {recipes
+                    {currentTableData
                         .filter((val) => {
                             if (searchMeal == "") {
                                 return val
