@@ -22,30 +22,38 @@ function AddFiller({addFiller, removeFiller, mealFillers}) {
 
 
 
-    const addFill = (fill) => 
-    MyAxios.post(`filler`,
-        {
-            name: fill
-        })
-        .then((response) => {
-            addFiller(response.data);
-            setNewFiller("")
-            setSearchFiller("")
-            setIsOpen(!isOpen);
-        })
-        .catch((error) => {
-            console.log(error);
-        })
+    const addFill = (fill) => {
+        MyAxios.post(`filler`,
+            {
+                name: fill
+            })
+            .then((response) => {
+                addFiller(response.data);
+                setNewFiller("")
+                setSearchFiller("")
+                // setIsOpen(!isOpen);
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+    }
 
-    const deleteFiller = (fillerName) => 
-    MyAxios.delete(`filler/${fillerName}`)
-        .then((response) => {
-            removeFiller();
-            setIsOpen(!isOpen);
-        })
-        .catch((error) => {
-            console.log(error);
-        })
+    const handleKeyDown = (event) => {
+        if (event.key === 'Enter') {
+            addFill(newFiller)
+        }
+    }
+
+    const deleteFiller = (fillerName) => {
+        MyAxios.delete(`filler/${fillerName}`)
+            .then((response) => {
+                removeFiller();
+                setIsOpen(!isOpen);
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+    }
 
     return (
         <div className='add-meal-button'>
@@ -76,6 +84,7 @@ function AddFiller({addFiller, removeFiller, mealFillers}) {
                                 type="text" 
                                 placeholder="Nazwa"
                                 onChange={event => (setNewFiller(event.target.value), setSearchFiller(event.target.value))}
+                                onKeyDown={handleKeyDown}
                             >
                             </input>
                         </label>
@@ -112,7 +121,7 @@ function AddFiller({addFiller, removeFiller, mealFillers}) {
                             onClick={toggleModal}
                             title='Anuluj'
                         >
-                            Anuluj
+                            Wyjście
                         </MyButton>
                         <MyButton
                             buttonStyle='btn--primary'

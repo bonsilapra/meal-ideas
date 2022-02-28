@@ -58,6 +58,11 @@
     flex-direction: column;
     justify-content: flex-start;
 
+    h3 {
+        margin-bottom: 5px;
+        color: $primaryColor;
+    }
+
     label {
         display: flex;
         flex-direction: column;
@@ -93,6 +98,25 @@
     .modal-select-buttons {
         @include flexCenter(row);
         flex-wrap: wrap;
+    }
+}
+
+.modal-input {
+    @include flexCenter(row);
+    justify-content: space-between;
+    width: 100%;
+
+    .modal-input-text {
+        width: 100%;
+    }
+
+    input {
+        display: flex;
+        width: 95%
+    }
+    button {
+        display: flex;
+        padding: 0;
     }
 }
 

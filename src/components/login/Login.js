@@ -31,6 +31,12 @@ function Login() {
             })
     }
 
+    const handleKeyDown = (event) => {
+        if (event.key === 'Enter') {
+            login()
+        }
+    }
+
 
     return (
         <>
@@ -52,6 +58,7 @@ function Login() {
                             type="password" 
                             placeholder="hasło"
                             onChange={e => {setLog({...log, password: e.target.value})}}
+                            onKeyDown={handleKeyDown}
                         >
                         </input>
                     </div>

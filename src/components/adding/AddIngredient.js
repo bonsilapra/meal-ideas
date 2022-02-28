@@ -21,31 +21,37 @@ function AddIngredient({addIngredient, removeIngredient, mealIngredients}) {
 
 
 
-    const addIngr = (ingredient) => 
-    MyAxios.post(`ingredient`,
-        {
-            name: ingredient
-        })
-        .then((response) => {
-            addIngredient(response.data);
-            setNewIngr("")
-            setSearchIngr("")
-            setIsOpen(!isOpen);
-        })
-        .catch((error) => {
-            console.log(error);
-        })
+    const addIngr = (ingredient) => {
+        MyAxios.post(`ingredient`,
+            {
+                name: ingredient
+            })
+            .then((response) => {
+                addIngredient(response.data);
+                setNewIngr("")
+                setSearchIngr("")
+                // setIsOpen(!isOpen);
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+    }
 
-    const deleteIngr = (ingrName) => 
-    MyAxios.delete(`ingredient/${ingrName}`)
-        .then((response) => {
-            removeIngredient();
-            setIsOpen(!isOpen);
-        })
-        .catch((error) => {
-            console.log(error);
-        })
+    const handleKeyDown = (event) => {
+        if (event.key === 'Enter') {
+            addIngr(newIngr)
+        }
+    }
 
+    const deleteIngr = (ingrName) => {
+        MyAxios.delete(`ingredient/${ingrName}`)
+            .then((response) => {
+                removeIngredient(ingrName);
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+    }
 
     return (
         <div className='add-meal-button'>
@@ -74,8 +80,10 @@ function AddIngredient({addIngredient, removeIngredient, mealIngredients}) {
                             Podaj nazwę składnika:
                             <input 
                                 type="text" 
+                                value={searchIngr}
                                 placeholder="Nazwa"
                                 onChange={event => (setNewIngr(event.target.value), setSearchIngr(event.target.value))}
+                                onKeyDown={handleKeyDown}
                             >
                             </input>
                         </label>
@@ -112,7 +120,7 @@ function AddIngredient({addIngredient, removeIngredient, mealIngredients}) {
                             onClick={toggleModal}
                             title='Anuluj'
                         >
-                            Anuluj
+                            Wyjście
                         </MyButton>
                         <MyButton
                             buttonStyle='btn--primary'

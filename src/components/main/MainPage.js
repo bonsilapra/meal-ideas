@@ -11,6 +11,7 @@ import Logout from '../login/Logout';
 import AddMeal from '../adding/AddMeal';
 import AddFiller from '../adding/AddFiller';
 import AddIngredient from '../adding/AddIngredient';
+import EditIngrOrFill from "../adding/EditIngrOrFill";
 
 
 
@@ -68,6 +69,12 @@ function MainPage() {
         setIngredients(mealIngredients.filter(element => {
             return element !== ingr
         }))
+    }
+
+    const editIngredient = (ingrOld, ingrNew) => {
+        setIngredients([...mealIngredients.filter(element => {
+            return element !== ingrOld
+        }), ingrNew])
     }
 
     const addFiller = (filler) => {
@@ -245,6 +252,7 @@ function MainPage() {
                         <AddMeal mealCategories={mealCategories} meatTypes={meatTypes} fillers={fillers} ingredients={ingredients} addRecipe={addRecipe}/>
                         <AddFiller  addFiller={addFiller} removeFiller={removeFiller} mealFillers={mealFillers}/>
                         <AddIngredient addIngredient={addIngredient} removeIngredient={removeIngredient} mealIngredients={mealIngredients} />
+                        <EditIngrOrFill mealFillers={mealFillers} mealIngredients={mealIngredients} editIngredient={editIngredient} />
                     </div>:
                     ""
                 }
