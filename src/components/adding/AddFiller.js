@@ -47,8 +47,8 @@ function AddFiller({addFiller, removeFiller, mealFillers}) {
     const deleteFiller = (fillerName) => {
         MyAxios.delete(`filler/${fillerName}`)
             .then((response) => {
-                removeFiller();
-                setIsOpen(!isOpen);
+                removeFiller(fillerName);
+                // setIsOpen(!isOpen);
             })
             .catch((error) => {
                 console.log(error);
@@ -83,6 +83,7 @@ function AddFiller({addFiller, removeFiller, mealFillers}) {
                             <input 
                                 type="text" 
                                 placeholder="Nazwa"
+                                value={searchFiller}
                                 onChange={event => (setNewFiller(event.target.value), setSearchFiller(event.target.value))}
                                 onKeyDown={handleKeyDown}
                             >

@@ -87,6 +87,12 @@ function MainPage() {
         }))
     }
 
+    const editFiller = (fillerOld, fillerNew) => {
+        setFillers([...mealFillers.filter(element => {
+            return element !== fillerOld
+        }), fillerNew])
+    }
+
     useEffect(()=> {
         myAxios.get(`recipe`)
             .then(res => {
@@ -252,7 +258,7 @@ function MainPage() {
                         <AddMeal mealCategories={mealCategories} meatTypes={meatTypes} fillers={fillers} ingredients={ingredients} addRecipe={addRecipe}/>
                         <AddFiller  addFiller={addFiller} removeFiller={removeFiller} mealFillers={mealFillers}/>
                         <AddIngredient addIngredient={addIngredient} removeIngredient={removeIngredient} mealIngredients={mealIngredients} />
-                        <EditIngrOrFill mealFillers={mealFillers} mealIngredients={mealIngredients} editIngredient={editIngredient} />
+                        <EditIngrOrFill mealFillers={mealFillers} mealIngredients={mealIngredients} editIngredient={editIngredient} editFillerMain={editFiller} />
                     </div>:
                     ""
                 }

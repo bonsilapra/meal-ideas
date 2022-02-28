@@ -5,10 +5,11 @@ import Modal from 'react-modal';
 import "./Add.css"
 import "../../commons/Commons.css"
 
-function EditIngrOrFill({mealIngredients, mealFillers, editIngredient}) {
+function EditIngrOrFill({mealIngredients, mealFillers, editIngredient, editFillerMain}) {
 
     const [isOpen, setIsOpen] = useState(false);
     const [searchIngr, setSearchIngr] = useState("")
+    const [searchFiller, setSearchFiller] = useState("")
 
     
     function toggleModal() {
@@ -18,15 +19,25 @@ function EditIngrOrFill({mealIngredients, mealFillers, editIngredient}) {
             editIngrName: ""
         });
         setSearchIngr('')
+        setEditFiller({
+            editFillerInput: false,
+            editFillerName: ""
+        });
+        setSearchFiller('')
     }
 
     const [editedIngrName, setEditedIngr] = useState("")
+    const [editedFillerName, setEditedFiller] = useState("")
+
 
     const [editIngr, setEditIngr] = useState({
         editInput: false,
         editIngrName: ""
     })
-
+    const [editFiller, setEditFiller] = useState({
+        editFillerInput: false,
+        editFillerName: ""
+    })
 
     const editIngredientName = (ingrOldName, ingrNewName) => {
         MyAxios.put(`ingredient/${ingrOldName}`, {
@@ -47,9 +58,34 @@ function EditIngrOrFill({mealIngredients, mealFillers, editIngredient}) {
             })
     }
 
+    const editFillerName = (fillerOldName, fillerNewName) => {
+        MyAxios.put(`filler/${fillerOldName}`, {
+            name: fillerNewName
+        })
+            .then((response) => {
+                editFillerMain(fillerOldName, response.data)
+                // setIsOpen(!isOpen);
+                setEditIngr({
+                    editFillerInput: false,
+                    editFillerName: ""
+                });
+                setEditedFiller("");
+                setSearchFiller("")
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+    }
+
     const handleKeyDownIngr = (event) => {
         if (event.key === 'Enter') {
             editIngredientName(editedIngrName, editIngr.editIngrName);
+        }
+    }
+
+    const handleKeyDownFiller = (event) => {
+        if (event.key === 'Enter') {
+            editFillerName(editedFillerName, editFiller.editFillerName);
         }
     }
 
@@ -76,6 +112,68 @@ function EditIngrOrFill({mealIngredients, mealFillers, editIngredient}) {
                 <div className='modal-container'>
                     <h2>Edytuj dodatki i składniki</h2>
                     <div className='modal-inputs'>
+                        <div>
+                            <h3>Dodatki:</h3>
+                            {editFiller.editFillerInput == true ?
+                                <div className='modal-inputs'>
+                                    <div className='modal-input'>
+                                        <div className='modal-input-text'>
+                                            <input
+                                                type="text" 
+                                                value={editFiller.editFillerName}
+                                                placeholder="Nowa nazwa"
+                                                onKeyDown={handleKeyDownFiller}
+                                                onChange={event => (setEditFiller({...editFiller, editFillerName: event.target.value}), setSearchFiller(event.target.value))}
+                                            >
+                                            </input>
+                                        </div>
+                                        <MyButton
+                                            buttonStyle='btn--primary--rev'
+                                            buttonShape='btn--square'
+                                            buttonSize='btn--medium-smaller'
+                                            onClick={() => setEditFiller({...editFiller, editFillerInput: false})}
+                                            title='Anuluj'
+                                        >
+                                            <i className="fas fa-times"></i>
+                                        </MyButton>
+                                        <MyButton
+                                            buttonStyle='btn--primary--rev'
+                                            buttonShape='btn--square'
+                                            buttonSize='btn--medium-smaller'
+                                            onClick={() => (editFillerName(editedFillerName, editFiller.editFillerName), setEditFiller({...editFiller, editFillerInput: false}))}
+                                            title='Zapisz'
+                                        >
+                                            <i className="fas fa-check"></i>
+                                        </MyButton>
+                                    </div>
+                                </div>
+                                : ""
+                            }
+                            <div className='ingr-buttons'>
+                                {mealFillers &&
+                                mealFillers
+                                .filter((val) => {
+                                    if (searchFiller == "") {
+                                        return val
+                                    } else if (val.toLowerCase().includes(searchFiller.toLowerCase())) {
+                                        return val
+                                    }
+                                })
+                                .sort((a,b) => a.localeCompare(b))
+                                .map((fillerName) => 
+                                        <MyButton
+                                            key={fillerName}
+                                            buttonStyle='btn--primary'
+                                            buttonShape='btn--square'
+                                            buttonSize='btn--small'
+                                            onClick={()=>(setEditFiller({editFillerInput: true, editFillerName: fillerName}), setEditedFiller(fillerName))}
+                                            aria-label='Składniki'
+                                        >
+                                            {fillerName}&nbsp;<i className="fas fa-edit"></i>
+                                        </MyButton>
+                                )}
+                            </div>
+                        </div>
                         <div>
                             <h3>Składniki:</h3>
                             {editIngr.editInput == true ?
