@@ -143,6 +143,14 @@ function MealCard({
                                     </div>
                                 </div>
                             )}
+                            <MyButton
+                                buttonStyle='btn--primary--rev'
+                                buttonSize='btn--medium--rev'
+                                onClick={handleCard}
+                                title="Zwiń"
+                            >
+                                <i className="fas fa-angle-up"></i>
+                            </MyButton>
                         </div>: ""
                     }
                 </div>
