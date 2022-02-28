@@ -59,6 +59,10 @@ function MainPage() {
         setRecipes([...recipes, recipe])
     }
 
+    const addIngredient = (ingr) => {
+        setIngredients([...mealIngredients, ingr])
+    }
+
 
     useEffect(()=> {
         myAxios.get(`recipe`)
@@ -281,8 +285,8 @@ function MainPage() {
                 {isLogged ?
                     <div className="add-meal-container">
                         <AddMeal mealCategories={mealCategories} meatTypes={meatTypes} fillers={fillers} ingredients={ingredients} addRecipe={addRecipe}/>
-                        <AddFiller />
-                        <AddIngredient />
+                        <AddFiller  />
+                        <AddIngredient addIngredient={addIngredient}/>
                     </div>:
                     ""
                 }
@@ -418,84 +422,90 @@ function MainPage() {
                     </>: ""
                 }
             </div>
-            <div className="cards-container">
-                {recipes
-                    .filter((val) => {
-                        if (searchMeal == "") {
-                            return val
-                        } else if (val.name.toLowerCase().includes(searchMeal.toLowerCase())) {
-                            return val
-                        }
-                    })
-                    .filter((meal) => {
-                        if (!filterMeal.mealCategory || filterMeal.mealCategory == "") {
-                            return true
-                        } 
-                        else if (filterMeal.mealCategory == meal.category) {
-                            return true
-                        }
-                    })
-                    .filter((meal) => {
-                        if (!filterMeal.meatType || filterMeal.meatType.length == 0) {
-                            return true
-                        } 
-                        else  {
-                            return filterMeal.meatType.every(meat => meal.meats.includes(meat))
-                        }
-                    })
-                    .filter((meal) => {
-                        if (!filterMeal.portions || filterMeal.portions == "") {
-                            return true
-                        } 
-                        else if (filterMeal.portions == meal.yield) {
-                            return true
-                        }
-                    })
-                    .filter((meal) => {
-                        if (!filterMeal.fillers || filterMeal.fillers.length == 0) {
-                            return true
-                        } 
-                        else { 
-                            return filterMeal.fillers.every(fill => meal.fillers.includes(fill))
-                        } 
-                    })
-                    .filter((meal) => {
-                        if (!filterMeal.ingredients || filterMeal.ingredients.length == 0) {
-                            return true
-                        } 
-                        else { 
-                            return filterMeal.ingredients.every(ingr => meal.ingredients.includes(ingr))
-                        } 
-                    })
-                    .map((meal) => {
-                        return(
-                            (meal.meats && meal.meats.length == 1) ?
-                                <MealCard 
-                                    key={meal.id} 
-                                    mealCategory={meal.category} 
-                                    mealName={meal.name}  
-                                    source={meal.source} 
-                                    portions={meal.yield} 
-                                    meatType={meal.meats[0]}  
-                                    fillers={meal.fillers}  
-                                    ingredients={meal.ingredients}
-                                    isLogged={isLogged} 
-                                />:
-                                <MealCardMultiMeat 
-                                    key={meal.id} 
-                                    mealCategory={meal.category} 
-                                    mealName={meal.name}  
-                                    source={meal.source} 
-                                    portions={meal.yield} 
-                                    meatType={meal.meats}  
-                                    fillers={meal.fillers}  
-                                    ingredients={meal.ingredients} 
-                                    isLogged={isLogged} 
-                                />
-                        )
-                    })
-                }
-            </div>
+            {isError==true ?
+                <div className="cards-container">
+                    <h1>Backend nie działa!</h1>
+                </div>
+                :
+                <div className="cards-container">
+                    {recipes
+                        .filter((val) => {
+                            if (searchMeal == "") {
+                                return val
+                            } else if (val.name.toLowerCase().includes(searchMeal.toLowerCase())) {
+                                return val
+                            }
+                        })
+                        .filter((meal) => {
+                            if (!filterMeal.mealCategory || filterMeal.mealCategory == "") {
+                                return true
+                            } 
+                            else if (filterMeal.mealCategory == meal.category) {
+                                return true
+                            }
+                        })
+                        .filter((meal) => {
+                            if (!filterMeal.meatType || filterMeal.meatType.length == 0) {
+                                return true
+                            } 
+                            else  {
+                                return filterMeal.meatType.every(meat => meal.meats.includes(meat))
+                            }
+                        })
+                        .filter((meal) => {
+                            if (!filterMeal.portions || filterMeal.portions == "") {
+                                return true
+                            } 
+                            else if (filterMeal.portions == meal.yield) {
+                                return true
+                            }
+                        })
+                        .filter((meal) => {
+                            if (!filterMeal.fillers || filterMeal.fillers.length == 0) {
+                                return true
+                            } 
+                            else { 
+                                return filterMeal.fillers.every(fill => meal.fillers.includes(fill))
+                            } 
+                        })
+                        .filter((meal) => {
+                            if (!filterMeal.ingredients || filterMeal.ingredients.length == 0) {
+                                return true
+                            } 
+                            else { 
+                                return filterMeal.ingredients.every(ingr => meal.ingredients.includes(ingr))
+                            } 
+                        })
+                        .map((meal) => {
+                            return(
+                                (meal.meats && meal.meats.length < 2) ?
+                                    <MealCard 
+                                        key={meal.id} 
+                                        mealCategory={meal.category} 
+                                        mealName={meal.name}  
+                                        source={meal.source} 
+                                        portions={meal.yield} 
+                                        meatType={meal.meats[0]}  
+                                        fillers={meal.fillers}  
+                                        ingredients={meal.ingredients}
+                                        isLogged={isLogged} 
+                                    />:
+                                    <MealCardMultiMeat 
+                                        key={meal.id} 
+                                        mealCategory={meal.category} 
+                                        mealName={meal.name}  
+                                        source={meal.source} 
+                                        portions={meal.yield} 
+                                        meatType={meal.meats}  
+                                        fillers={meal.fillers}  
+                                        ingredients={meal.ingredients} 
+                                        isLogged={isLogged} 
+                                    />
+                            )
+                        })
+                    }
+                </div>
+            }
                 <Pagination
                     className="pagination-bar"
                     currentPage={currentPage}

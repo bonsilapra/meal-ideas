@@ -35,6 +35,9 @@ function MealCardMultiMeat({
     const vege = leaf
     const wieprzowina = pig
 
+    const ingrAll = [...fillers, ...ingredients]
+
+
     const mealData = [
         {label: "Źródło", content: source},
         {label: "Składniki", content: 
@@ -43,16 +46,15 @@ function MealCardMultiMeat({
                 "" : (meatType.filter((meat) => meat.includes("vege")).length != 0  ? 
                     "" : meatType.join(", ") )+ ", ") 
             : "") + 
-            (fillers ? (fillers.length > 0 ? (fillers.join(", ")) + ", " : (fillers.join(", "))) : "") + 
-            (ingredients ? ingredients.join(", ") : "")},
+            (ingrAll && ingrAll.length > 0 ? ingrAll.join(", ") : "")
+        },
         {label: "Porcje", content: portions}
     ]
 
     return (
         <div style={{margin:"10px"}}>
-            <MyButton
-                buttonStyle='btn--meal-card'
-                buttonSize='btn--meal-size'
+            <div
+                className="meal-card"
                 onClick={handleCard}
                 aria-label={mealName}
             >
@@ -73,16 +75,28 @@ function MealCardMultiMeat({
                             </div>:""
                         }
                         <div className="meal-name">
-                            <h2>{mealName}</h2>
+                            <div className="meal-name-title">
+                                <h3>{mealName}</h3>
+                            </div>
                             {isLogged ? 
-                                <MyButton
-                                    buttonStyle='btn--primary--rev'
-                                    buttonSize='btn--medium'
-                                    // onClick={removeMeal}
-                                    title="Usuń posiłek"
-                                >
-                                    &nbsp;<i className="fas fa-trash"></i>
-                                </MyButton> : ""
+                                <div className="meal-buttons">
+                                    <MyButton
+                                        buttonStyle='btn--primary--rev'
+                                        buttonSize='btn--medium--rev'
+                                        // onClick={editMeal}
+                                        title="Edytuj posiłek"
+                                    >
+                                        &nbsp;<i className="fas fa-edit"></i>
+                                    </MyButton> 
+                                    <MyButton
+                                        buttonStyle='btn--primary--rev'
+                                        buttonSize='btn--medium--rev'
+                                        // onClick={removeMeal}
+                                        title="Usuń posiłek"
+                                    >
+                                        &nbsp;<i className="fas fa-trash"></i>
+                                    </MyButton> 
+                                </div> : ""
                             }  
                         </div>
                     </div>
@@ -105,7 +119,7 @@ function MealCardMultiMeat({
                         </div>: ""
                     }
                 </div>
-            </MyButton>
+            </div>
         </div>
     )
 }

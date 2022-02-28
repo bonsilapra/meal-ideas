@@ -5,7 +5,6 @@ const STYLES = [
     'btn--primary', 
     'btn--primary--rev', 
     'btn--secondary',
-    'btn--meal-card',
     'btn--object'
 ];
 
@@ -18,8 +17,7 @@ const SIZES = [
     'btn--small', 
     'btn--medium', 
     'btn--medium-smaller',
-    'btn--large-mobile',
-    'btn--meal-size'
+    'btn--medium--rev'
 ];
 
 export const MyButton = ({

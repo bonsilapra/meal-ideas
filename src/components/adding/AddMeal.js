@@ -81,7 +81,7 @@ function AddMeal ({mealCategories, meatTypes, fillers, ingredients, addRecipe}) 
         setNewMeal({...newMeal, ingredients: newMeal.ingredients.filter((e) => e != ingrName )})
     }
 
-    const addMeal = (mealName, mealSource, mealCategory, meatType, portions, fillers, ingredients) => 
+    const addMeal = ({mealName, mealSource, mealCategory, meatType, portions, fillers, ingredients}) => 
         MyAxios.post(`recipe`,
             {
                 name: mealName,
@@ -222,7 +222,10 @@ function AddMeal ({mealCategories, meatTypes, fillers, ingredients, addRecipe}) 
                         <label>
                             Wybierz składniki:
                             <select value="" onChange={ingrHandler}>
-                                {ingredients && ingredients.map((ingr) => 
+                                {ingredients && ingredients
+                                .sort((a,b) => 
+                                    a.text.localeCompare(b.text))
+                                .map((ingr) => 
                                     <option 
                                         key={ingr.value} 
                                         value={ingr.value} 

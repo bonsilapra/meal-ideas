@@ -9,18 +9,19 @@ function Login() {
 
     const [log, setLog] = useState(
             {
-                login: "",
+                username: "",
                 password: "",
                 isLogged: false
             }
         
     )
-    let loginFormData = new FormData();
-    loginFormData.append('username', log.login);
-    loginFormData.append('password', log.password);
+
 
     const login = () => {
-        MyAxios.post(`login`, loginFormData, {headers: { "Content-Type": "multipart/form-data" }})
+        MyAxios.post(`login`, {
+            username: log.username,
+            password: log.password
+        })
             .then((response) => {
                 setLog({...log, isLogged: true})
                 sessionStorage.setItem('isLogged', true);
@@ -42,7 +43,7 @@ function Login() {
                         <input 
                             type="text" 
                             placeholder="login"
-                            onChange={e => {setLog({...log, login: e.target.value})}}
+                            onChange={e => {setLog({...log, username: e.target.value})}}
                         >
                         </input>
                     </div>

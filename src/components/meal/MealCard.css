@@ -54,7 +54,7 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  background-color: #F2F2F2;
+  background-color: transparent;
   color: #13678A;
   text-shadow: 0 0 10px #13678A;
   -webkit-transition: 0.3s ease-out;
@@ -101,29 +101,6 @@
   cursor: default;
 }
 
-.btn--meal-card {
-  background: transparent;
-  border-radius: 20px;
-  -webkit-box-shadow: 0 0 10px #012030;
-          box-shadow: 0 0 10px #012030;
-  -webkit-transition: 0.3s ease-out;
-  transition: 0.3s ease-out;
-}
-
-.btn--meal-card:hover {
-  -webkit-box-shadow: 0 0 10px #13678A;
-          box-shadow: 0 0 10px #13678A;
-  -webkit-transition: 0.3s ease-out;
-  transition: 0.3s ease-out;
-}
-
-.btn--meal-card:hover:focus {
-  -webkit-box-shadow: 0 0 10px #13678A;
-          box-shadow: 0 0 10px #13678A;
-  -webkit-transition: 0.3s ease-out;
-  transition: 0.3s ease-out;
-}
-
 .btn--square {
   border-radius: 10px;
   width: -webkit-fit-content;
@@ -148,6 +125,13 @@
   margin: 5px;
 }
 
+.btn--medium--rev {
+  padding: 0.3em 0.3em;
+  font-size: 1em;
+  font-weight: 600;
+  margin: 5px;
+}
+
 .btn--medium-smaller {
   padding: 0.45em 0.8em;
   font-size: 1em;
@@ -155,11 +139,27 @@
   margin: 5px;
 }
 
-.btn--meal-size {
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  padding: 0;
+.meal-card {
+  background: transparent;
+  border-radius: 20px;
+  -webkit-box-shadow: 0 0 10px #012030;
+          box-shadow: 0 0 10px #012030;
+  -webkit-transition: 0.3s ease-out;
+  transition: 0.3s ease-out;
+}
+
+.meal-card:hover {
+  -webkit-box-shadow: 0 0 10px #13678A;
+          box-shadow: 0 0 10px #13678A;
+  -webkit-transition: 0.3s ease-out;
+  transition: 0.3s ease-out;
+}
+
+.meal-card:hover:focus {
+  -webkit-box-shadow: 0 0 10px #13678A;
+          box-shadow: 0 0 10px #13678A;
+  -webkit-transition: 0.3s ease-out;
+  transition: 0.3s ease-out;
 }
 
 .cardFolded, .cardFull {
@@ -182,6 +182,7 @@
   height: 100px;
   width: 350px;
   border-radius: 20px;
+  cursor: pointer;
 }
 
 .cardFull {
@@ -302,8 +303,20 @@
   width: 100%;
   height: 70px;
   color: #13678A;
-  margin: 20px 10px 10px 0px;
+  margin: 20px 10px 10px 10px;
   overflow-wrap: break-word;
+}
+
+.meal-name h3 {
+  text-align: center;
+}
+
+.meal-name-title {
+  width: 90%;
+}
+
+.meal-buttons {
+  margin-left: auto;
 }
 
 .meal-details {
