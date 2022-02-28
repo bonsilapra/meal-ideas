@@ -14,6 +14,7 @@ import AddIngredient from '../adding/AddIngredient';
 
 
 
+
 // import data from '../pagination/data/mock-data.json';
 
 
@@ -63,6 +64,21 @@ function MainPage() {
         setIngredients([...mealIngredients, ingr])
     }
 
+    const removeIngredient = (ingr) => {
+        setIngredients(mealIngredients.filter(element => {
+            return element !== ingr
+        }))
+    }
+
+    const addFiller = (filler) => {
+        setFillers([...mealFillers, filler])
+    }
+
+    const removeFiller = (filler) => {
+        setFillers(mealFillers.filter(element => {
+            return element !== filler
+        }))
+    }
 
     useEffect(()=> {
         myAxios.get(`recipe`)
@@ -109,9 +125,14 @@ function MainPage() {
 
 
     const portionsValues = 
-        recipes && recipes.map((recipe) => {
-            return {value: recipe.yield, text: recipe.yield}
-        })
+        recipes && recipes
+        .reduce((accumulator, curr) => {
+            if (accumulator.findIndex(elem => elem.value == curr.yield) < 0) {
+                return accumulator.concat({value: curr.yield, text: curr.yield})
+            } else {
+                return accumulator
+            }
+        }, [])
     
     const portions = [{value: "",  text: "Porcje"}].concat(portionsValues)
 
@@ -188,69 +209,6 @@ function MainPage() {
 
     const isLogged = sessionStorage.getItem('isLogged')
 
-    let mockDishes = [
-        {
-            key:1,
-            mealCategory:"obiad", 
-            mealName:"Lazania", 
-            source:"https://aniagotuje.pl/przepis/lazania",
-            portions:"6",
-            meatType:["wieprzowina", "wołowina", "kurczak", "ryba"] ,
-            fillers:["makaron"] ,
-            ingredients:["cebula", "czosnek", "przecier pomidorowy"]
-        },
-        {
-            key:4,
-            mealCategory:"obiad", 
-            mealName:"Lazania duża", 
-            source:"https://aniagotuje.pl/przepis/lazania",
-            portions:"8",
-            meatType:["wieprzowina"] ,
-            fillers:["makaron"] ,
-            ingredients:["cebula", "czosnek", "przecier pomidorowy"]
-        },
-        {
-            key:2,
-            mealCategory:"deser", 
-            mealName:"Kruche rogaliki z marmoladą/powidłami", 
-            source:"Przepiśnik",
-            portions:"32/40",
-            meatType:[""] ,
-            fillers:[] ,
-            ingredients:["mąka pszenna", "margaryna", "cukier puder", "żółtka", "śmietana 18%" ]
-        },
-        {
-            key:3,
-            mealCategory:"obiad", 
-            mealName:"Tatar", 
-            source:"Z głowy",
-            portions:"2",
-            meatType:["wołowina"] ,
-            fillers:["chleb"] ,
-            ingredients:["cebula", "ogórek kiszony", "żółtka"]
-        },
-        {
-            key:5,
-            mealCategory:"obiad", 
-            mealName:"Łosoś w sojowo-imbirowej marynacie", 
-            source:"https://kuchnialidla.pl/losos-w-sojowo-imbirowej-marynacie",
-            portions:"4",
-            meatType:["ryba"] ,
-            fillers:["ryż"] ,
-            ingredients:["łosoś", "imbir", "czosnek", "limonka", "sos sojowy"]
-        },
-        {
-            key:6,
-            mealCategory:"obiad", 
-            mealName:"Naleśniki", 
-            source:"Przepiśnik",
-            portions:"4",
-            meatType:["vege"] ,
-            fillers:[] ,
-            ingredients:["mąka pszenna", "jajko", "mleko"]
-        },
-    ]
-
     return (
         <div className="main-container">
             {isLogged ?
@@ -285,8 +243,8 @@ function MainPage() {
                 {isLogged ?
                     <div className="add-meal-container">
                         <AddMeal mealCategories={mealCategories} meatTypes={meatTypes} fillers={fillers} ingredients={ingredients} addRecipe={addRecipe}/>
-                        <AddFiller  />
-                        <AddIngredient addIngredient={addIngredient}/>
+                        <AddFiller  addFiller={addFiller} removeFiller={removeFiller} mealFillers={mealFillers}/>
+                        <AddIngredient addIngredient={addIngredient} removeIngredient={removeIngredient} mealIngredients={mealIngredients} />
                     </div>:
                     ""
                 }

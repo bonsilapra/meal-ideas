@@ -101,3 +101,8 @@
     justify-content: flex-end;
     padding-top: 10px
 }
+
+.ingr-buttons {
+    @include flexCenter(row);
+    flex-wrap: wrap;
+}

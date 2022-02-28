@@ -5,13 +5,16 @@ import Modal from 'react-modal';
 import "./Add.css"
 import "../../commons/Commons.css"
 
-function AddIngredient({addIngredient}) {
+function AddIngredient({addIngredient, removeIngredient, mealIngredients}) {
 
     const [isOpen, setIsOpen] = useState(false);
+    const [searchIngr, setSearchIngr] = useState("")
+
     
     function toggleModal() {
         setIsOpen(!isOpen);
-        setNewIngr('')
+        setNewIngr('');
+        setSearchIngr('')
     }
 
     const [newIngr, setNewIngr] = useState('')
@@ -25,6 +28,18 @@ function AddIngredient({addIngredient}) {
         })
         .then((response) => {
             addIngredient(response.data);
+            setNewIngr("")
+            setSearchIngr("")
+            setIsOpen(!isOpen);
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+
+    const deleteIngr = (ingrName) => 
+    MyAxios.delete(`ingredient/${ingrName}`)
+        .then((response) => {
+            removeIngredient();
             setIsOpen(!isOpen);
         })
         .catch((error) => {
@@ -60,10 +75,34 @@ function AddIngredient({addIngredient}) {
                             <input 
                                 type="text" 
                                 placeholder="Nazwa"
-                                onChange={event => setNewIngr(event.target.value)}
+                                onChange={event => (setNewIngr(event.target.value), setSearchIngr(event.target.value))}
                             >
                             </input>
                         </label>
+                        <div className='ingr-buttons'>
+                            {mealIngredients &&
+                            mealIngredients
+                            .filter((val) => {
+                                if (searchIngr == "") {
+                                    return val
+                                } else if (val.toLowerCase().includes(searchIngr.toLowerCase())) {
+                                    return val
+                                }
+                            })
+                            .sort((a,b) => a.localeCompare(b))
+                            .map((ingrName) => 
+                                <MyButton
+                                    key={ingrName}
+                                    buttonStyle='btn--primary'
+                                    buttonShape='btn--square'
+                                    buttonSize='btn--small'
+                                    onClick={()=>deleteIngr(ingrName)}
+                                    aria-label='Składniki'
+                                >
+                                    {ingrName}&nbsp;<i className="fas fa-times"></i>
+                                </MyButton>
+                            )}
+                        </div>
                     </div>
                     <div className='modal-buttons'>
                         <MyButton
