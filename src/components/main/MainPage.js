@@ -61,6 +61,12 @@ function MainPage() {
         setRecipes([...recipes, recipe])
     }
 
+    const removeRecipe = (mealId) => {
+        setRecipes(recipes.filter(element => {
+            return element.id !== mealId
+        }))
+    }
+
     const addIngredient = (ingr) => {
         setIngredients([...mealIngredients, ingr])
     }
@@ -453,6 +459,7 @@ function MainPage() {
                                 (meal.meats && meal.meats.length < 2) ?
                                     <MealCard 
                                         key={meal.id} 
+                                        mealId={meal.id} 
                                         mealCategory={meal.category} 
                                         mealName={meal.name}  
                                         source={meal.source} 
@@ -461,9 +468,11 @@ function MainPage() {
                                         fillers={meal.fillers}  
                                         ingredients={meal.ingredients}
                                         isLogged={isLogged} 
+                                        removeRecipe={removeRecipe}
                                     />:
                                     <MealCardMultiMeat 
                                         key={meal.id} 
+                                        mealId={meal.id}
                                         mealCategory={meal.category} 
                                         mealName={meal.name}  
                                         source={meal.source} 
@@ -472,6 +481,7 @@ function MainPage() {
                                         fillers={meal.fillers}  
                                         ingredients={meal.ingredients} 
                                         isLogged={isLogged} 
+                                        removeRecipe={removeRecipe}
                                     />
                             )
                         })

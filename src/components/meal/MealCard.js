@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { MyButton } from "../../commons/MyButtons"
+import MyAxios from '../../commons/MyAxios'
 import classNames from 'classnames';
 import chicken from "../../images/chicken.png"
 import cow from "../../images/cow.png"
@@ -9,6 +10,7 @@ import pig from "../../images/pig.png"
 import "./MealCard.css"
 
 function MealCard({
+    mealId,
     mealCategory,
     mealName, 
     source,
@@ -16,7 +18,8 @@ function MealCard({
     meatType,
     fillers, 
     ingredients,
-    isLogged
+    isLogged,
+    removeRecipe
 }) {
 
     const [cardFull, setCardFull] = useState(false)
@@ -64,11 +67,20 @@ function MealCard({
         {label: "Porcje", content: portions}
     ]
 
+    const deleteMeal = (mealId) => {
+        MyAxios.delete(`recipe/${mealId}`)
+            .then((response) => {
+                removeRecipe(mealId);
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+    }
+
     return (
         <div style={{margin:"10px"}}>
             <div 
                 className="meal-card"
-                onClick={handleCard}
                 aria-label={mealName}
             >
                 <div className={
@@ -87,7 +99,10 @@ function MealCard({
                             </div>:""
                         }
                         <div className="meal-name">
-                            <div className="meal-name-title">
+                            <div 
+                                className="meal-name-title"
+                                onClick={handleCard}
+                            >
                                 <h3>{mealName}</h3>
                             </div>
                             {isLogged ? 
@@ -103,7 +118,7 @@ function MealCard({
                                     <MyButton
                                         buttonStyle='btn--primary--rev'
                                         buttonSize='btn--medium--rev'
-                                        // onClick={removeMeal}
+                                        onClick={() => deleteMeal(mealId)}
                                         title="Usuń posiłek"
                                     >
                                         &nbsp;<i className="fas fa-trash"></i>

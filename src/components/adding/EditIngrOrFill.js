@@ -247,16 +247,6 @@ function EditIngrOrFill({mealIngredients, mealFillers, editIngredient, editFille
                         >
                             Wyjście
                         </MyButton>
-                        {/* <MyButton
-                            buttonStyle='btn--primary'
-                            buttonShape='btn--square'
-                            buttonSize='btn--medium-smaller'
-                            onClick={() => addIngr(newIngr)}
-                            title='Dodaj składnik'
-                            disabled={newIngr.length == 0}
-                        >
-                            Dodaj
-                        </MyButton> */}
                     </div>
                 </div>
             </Modal>
