@@ -1,88 +1,93 @@
-import React, { useState } from 'react';
-import { MyButton } from "../../commons/MyButtons";
+import React, { useState } from "react";
+import { MyButton } from "../../commons/MyButtons"
 import MyAxios from '../../commons/MyAxios'
-import "./Add.css"
-import "../../commons/Commons.css"
 import Modal from 'react-modal';
 import MeatTypeButton from "../main/MeatTypeButton";
+import "./MealCard.css"
+import "../adding/Add.css"
+import "../../commons/Commons.css"
 
-
-
-function AddMeal ({mealCategories, meatTypes, fillers, ingredients, addRecipe}) {
+function EditMeal({
+    mealId,
+    mealCategory,
+    mealName, 
+    source,
+    portions,
+    meatType,
+    fillers, 
+    ingredients,
+    mealCategoriesList, 
+    meatTypesList,
+    fillersList, 
+    ingredientsList,
+    editRecipe
+}) {
 
     const [isOpen, setIsOpen] = useState(false);
-    
+
     function toggleModal() {
-        setIsOpen(!isOpen);
-        setNewMeal({
-            mealName: "",
-            mealSource: "",
-            mealCategory: "",
-            meatType: [],
-            portions: "",
-            fillers: [],
-            ingredients: []
-        })
+        setIsOpen(!isOpen)
     }
 
-    const [newMeal, setNewMeal] = useState(
+    const [editMeal, setEditMeal] = useState(
         {
-            mealName: "",
-            mealSource: "",
-            mealCategory: "",
-            meatType: [],
-            portions: "",
-            fillers: [],
-            ingredients: []
+            mealId: mealId,
+            mealName: mealName,
+            mealSource: source,
+            mealCategory: mealCategory,
+            meatType: meatType,
+            portions: portions,
+            fillers: fillers,
+            ingredients: ingredients
         }
     )
 
     const mealNameHandler = (e) => {
-        setNewMeal({...newMeal, mealName: e.target.value})
+        setEditMeal({...editMeal, mealName: e.target.value})
     }
 
     const sourceHandler = (e) => {
-        setNewMeal({...newMeal, mealSource: e.target.value})
+        setEditMeal({...editMeal, mealSource: e.target.value})
     }
 
     const portionsHandler = (e) => {
-        setNewMeal({...newMeal, portions: e.target.value})
+        setEditMeal({...editMeal, portions: e.target.value})
     }
     
     const mealCategoryHandler = (e) => {
         if (e.target.value != "obiad") {
-            setNewMeal({...newMeal, mealCategory: e.target.value,  meatType: []})
+            setEditMeal({...editMeal, mealCategory: e.target.value,  meatType: []})
         } else {
-            setNewMeal({...newMeal, mealCategory: e.target.value})
+            setEditMeal({...editMeal, mealCategory: e.target.value})
         }
     }
 
     const meatHandler = (e) => {
-        setNewMeal({...newMeal, meatType: [...newMeal.meatType, e.target.value]})
+        setEditMeal({...editMeal, meatType: [...editMeal.meatType, e.target.value]})
     }
 
     const fillerHandler = (e) => {
-        setNewMeal({...newMeal, fillers: [...newMeal.fillers, e.target.value]})
+        setEditMeal({...editMeal, fillers: [...editMeal.fillers, e.target.value]})
     }
 
     const ingrHandler = (e) => {
-        setNewMeal({...newMeal, ingredients: [...newMeal.ingredients, e.target.value]})
+        setEditMeal({...editMeal, ingredients: [...editMeal.ingredients, e.target.value]})
     }
 
     const removeMeatType = (meatName) => {
-        setNewMeal({...newMeal, meatType: newMeal.meatType.filter((e) => e != meatName )})
+        setEditMeal({...editMeal, meatType: editMeal.meatType.filter((e) => e != meatName )})
     }
 
     const removeFillerType = (fillerName) => {
-        setNewMeal({...newMeal, fillers: newMeal.fillers.filter((e) => e != fillerName )})
+        setEditMeal({...editMeal, fillers: editMeal.fillers.filter((e) => e != fillerName )})
     }
 
     const removeIngr = (ingrName) => {
-        setNewMeal({...newMeal, ingredients: newMeal.ingredients.filter((e) => e != ingrName )})
+        setEditMeal({...editMeal, ingredients: editMeal.ingredients.filter((e) => e != ingrName )})
     }
 
-    const addMeal = ({mealName, mealSource, mealCategory, meatType, portions, fillers, ingredients}) => {
-        MyAxios.post(`recipe`,
+    const editMealPost = ({mealId, mealName, mealSource, mealCategory, meatType, portions, fillers, ingredients}) => {
+        MyAxios.put(`recipe/${mealId}`,
             {
                 name: mealName,
                 source: mealSource,
@@ -93,7 +98,7 @@ function AddMeal ({mealCategories, meatTypes, fillers, ingredients, addRecipe}) 
                 category: mealCategory
             })
             .then((response) => {
-                addRecipe(response.data);
+                editRecipe(mealId, response.data);
                 setIsOpen(!isOpen);
             })
             .catch((error) => {
@@ -102,16 +107,15 @@ function AddMeal ({mealCategories, meatTypes, fillers, ingredients, addRecipe}) 
     }
 
     return (
-        <div className='add-meal-button'>
+        <>
             <MyButton
-                buttonStyle='btn--primary'
-                buttonShape='btn--square'
-                buttonSize='btn--medium'
+                buttonStyle='btn--primary--rev'
+                buttonSize='btn--medium--rev'
                 onClick={toggleModal}
-                title='Dodaj posiłek'
+                title="Edytuj posiłek"
             >
-                <i className="fas fa-plus"></i>&nbsp;&nbsp;<i className="fas fa-utensils"></i>
-            </MyButton>
+                &nbsp;<i className="fas fa-edit"></i>
+            </MyButton> 
             <Modal
                 isOpen={isOpen}
                 onRequestClose={toggleModal}
@@ -122,94 +126,117 @@ function AddMeal ({mealCategories, meatTypes, fillers, ingredients, addRecipe}) 
                 ariaHideApp={false}
             >
                 <div className='modal-container'>
-                    <h2>Dodaj posiłek</h2>
+                    <h2>Edytuj posiłek</h2>
                     <div className='modal-inputs'>
                         <label>
-                            Podaj nazwę posiłku:
+                            Zmień nazwę posiłku:
                             <input 
                                 type="text" 
                                 placeholder="Nazwa"
+                                value={editMeal.mealName}
                                 onChange={event => mealNameHandler(event)}
                             >
                             </input>
                         </label>
                         <label>
-                            Podaj źródło do przepisu:
+                            Edytuj źródło do przepisu:
                             <textarea 
                                 type="text" 
                                 placeholder="Żródło"
+                                rows={3}
+                                value={editMeal.mealSource}
                                 onChange={event => sourceHandler(event)}
                             >
                             </textarea>
                         </label>
                         <label>
-                            Podaj ilośc porcji:
+                            Edytuj ilośc porcji:
                             <input 
                                 type="text" 
                                 placeholder="Porcje"
+                                value={editMeal.portions}
                                 onChange={event => {portionsHandler(event)}}
                             >
                             </input>
                         </label>
                         <label>
-                            Wybierz typ dania:
-                            <select value="" onChange={mealCategoryHandler}> 
-                                {mealCategories && mealCategories.map((mealCat) => {
+                            Edytuj typ dania:
+                            <select 
+                                value={editMeal.mealCategory}
+                                onChange={mealCategoryHandler}
+                                multiple={false}
+                            > 
+                                {mealCategoriesList && mealCategoriesList.map((mealCat) => {
                                     return <option key={mealCat.value} value={mealCat.value}>{mealCat.text}</option>
                                 })}
                             </select>
-                            {newMeal.mealCategory.length !=0 ?
+                            {editMeal.mealCategory &&
+                            editMeal.mealCategory.length !=0 ?
                                 <MyButton
                                     buttonStyle='btn--object'
                                     buttonShape='btn--square'
                                     buttonSize='btn--small'
                                     aria-label='Kategoria posiłku'
                                 >
-                                    <i className="fas fa-utensils"></i>&nbsp;{newMeal.mealCategory}
+                                    <i className="fas fa-utensils"></i>&nbsp;{editMeal.mealCategory}
                                 </MyButton>
                                 :""
                             }
                         </label>
-                            {newMeal.mealCategory=="obiad" ?
+                            {editMeal.mealCategory=="obiad" ?
                                 <label>
-                                    Wybierz rodzaje mięsa:
-                                    <select value="" onChange={meatHandler}>
-                                        {meatTypes && meatTypes.map((meatType) => 
+                                    Edytuj rodzaje mięsa:
+                                    <select 
+                                        value=""
+                                        onChange={meatHandler}
+                                        multiple={false}
+                                    >
+                                        {meatTypesList && meatTypesList.map((meatType) => 
                                             <option 
                                                 key={meatType.value} 
                                                 value={meatType.value} 
-                                                disabled={newMeal.meatType.includes(meatType.value)}
+                                                disabled={editMeal.meatType && editMeal.meatType.includes(meatType.value)}
                                             >
                                                 {meatType.text}
                                             </option>
                                         )}
                                     </select>
                                     <div className='modal-select-buttons'>
-                                        {newMeal.meatType.map((meatButton) => {  
+                                        {editMeal.meatType ? editMeal.meatType.map((meatButton) => {  
                                             return <MeatTypeButton key={meatButton} meatType={meatButton} removeMeatType={removeMeatType}/>
-                                        })}
+                                        }) : ""}
                                     </div>
                                 </label>
                             : ""
                             }
                         <label>
-                            Wybierz rodzaje dodatków:
-                            <select value="" onChange={fillerHandler}>
-                                {fillers && fillers
+                            Edytuj rodzaje dodatków:
+                            <select 
+                                value=""
+                                onChange={fillerHandler}
+                                multiple={false}
+                            >
+                                <option 
+                                    key="dodatki" 
+                                    value="Dodatki"
+                                >
+                                    Dodatki
+                                </option>
+                                {fillersList && fillersList
                                 .sort((a,b) => 
                                     a.text.localeCompare(b.text))
                                 .map((filler) => 
                                     <option 
                                         key={filler.value} 
                                         value={filler.value} 
-                                        disabled={newMeal.fillers.includes(filler.value)}
+                                        disabled={editMeal.fillers.includes(filler.value)}
                                     >
                                         {filler.text}
                                     </option>
                                 )}
                             </select>
                             <div className='modal-select-buttons'>
-                                {newMeal.fillers.map((fillerButton) => 
+                                {editMeal.fillers && editMeal.fillers.map((fillerButton) => 
                                     <MyButton
                                         key={fillerButton}
                                         buttonStyle='btn--primary'
@@ -224,23 +251,33 @@ function AddMeal ({mealCategories, meatTypes, fillers, ingredients, addRecipe}) 
                             </div>
                         </label>
                         <label>
-                            Wybierz składniki:
-                            <select value="" onChange={ingrHandler}>
-                                {ingredients && ingredients
+                            Edytuj składniki:
+                            <select 
+                                value=""
+                                onChange={ingrHandler}
+                                multiple={false}
+                            >
+                                    <option 
+                                        key="składniki" 
+                                        value="Składniki"
+                                    >
+                                        Składniki
+                                    </option>
+                                {ingredientsList && ingredientsList
                                 .sort((a,b) => 
                                     a.text.localeCompare(b.text))
                                 .map((ingr) => 
                                     <option 
                                         key={ingr.value} 
                                         value={ingr.value} 
-                                        disabled={newMeal.ingredients.includes(ingr.value)}
+                                        disabled={editMeal.ingredients.includes(ingr.value)}
                                     >
                                         {ingr.text}
                                     </option>
                                 )}
                             </select>
                             <div className='modal-select-buttons'>
-                                {newMeal.ingredients.map((ingrButton) => 
+                                {editMeal.ingredients && editMeal.ingredients.map((ingrButton) => 
                                     <MyButton
                                         key={ingrButton}
                                         buttonStyle='btn--primary'
@@ -269,27 +306,28 @@ function AddMeal ({mealCategories, meatTypes, fillers, ingredients, addRecipe}) 
                             buttonStyle='btn--primary'
                             buttonShape='btn--square'
                             buttonSize='btn--medium-smaller'
-                            onClick={() => addMeal(
+                            onClick={() => editMealPost(
                                 {
-                                    mealName: newMeal.mealName,
-                                    mealSource: newMeal.mealSource,
-                                    mealCategory: newMeal.mealCategory,
-                                    meatType: newMeal.meatType,
-                                    portions: newMeal.portions,
-                                    fillers: newMeal.fillers,
-                                    ingredients: newMeal.ingredients
+                                    mealId: mealId,
+                                    mealName: editMeal.mealName,
+                                    mealSource: editMeal.mealSource,
+                                    mealCategory: editMeal.mealCategory,
+                                    meatType: editMeal.meatType,
+                                    portions: editMeal.portions,
+                                    fillers: editMeal.fillers,
+                                    ingredients: editMeal.ingredients
                                 }
                             )}
                             title='Dodaj posiłek'
-                            disabled={newMeal.mealName.length == 0 || newMeal.mealCategory.length == 0 || (newMeal.mealCategory == "obiad" && newMeal.meatType.length == 0)}
+                            disabled={editMeal.mealName.length == 0 || editMeal.mealCategory.length == 0 || (editMeal.mealCategory == "obiad" && editMeal.meatType.length == 0)}
                         >
                             Dodaj
                         </MyButton>
                     </div>
                 </div>
             </Modal>
-        </div>
+        </>
     )
 }
 
-export default AddMeal
+export default EditMeal

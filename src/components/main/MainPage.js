@@ -63,6 +63,16 @@ function MainPage() {
         }))
     }
 
+    const editRecipe = (recipeId, recipeNewVal) => {
+        setRecipes(recipes.map((element) => {
+            if (element.id !== recipeId) {
+                return element
+            } else {
+                return recipeNewVal
+            }
+        }))
+    }
+
     const addIngredient = (ingr) => {
         setIngredients([...mealIngredients, ingr])
     }
@@ -460,11 +470,16 @@ function MainPage() {
                                         mealName={meal.name}  
                                         source={meal.source} 
                                         portions={meal.yield} 
-                                        meatType={meal.meats[0]}  
+                                        meatType={meal.meats}  
                                         fillers={meal.fillers}  
                                         ingredients={meal.ingredients}
                                         isLogged={isLogged} 
                                         removeRecipe={removeRecipe}
+                                        mealCategoriesList={mealCategories} 
+                                        meatTypesList={meatTypes} 
+                                        fillersList={fillersValues} 
+                                        ingredientsList={ingredientsValues}
+                                        editRecipe={editRecipe}
                                     />:
                                     <MealCardMultiMeat 
                                         key={meal.id} 
@@ -478,6 +493,11 @@ function MainPage() {
                                         ingredients={meal.ingredients} 
                                         isLogged={isLogged} 
                                         removeRecipe={removeRecipe}
+                                        mealCategoriesList={mealCategories} 
+                                        meatTypesList={meatTypes} 
+                                        fillersList={fillersValues} 
+                                        ingredientsList={ingredientsValues}
+                                        editRecipe={editRecipe}
                                     />
                             )
                         })

@@ -241,6 +241,17 @@
   margin: 5px 0 10px 0;
 }
 
+.modal-inputs textarea {
+  padding: 5px;
+  font-size: 1em;
+  color: #13678A;
+  -webkit-box-shadow: 0 0 5px #012030;
+          box-shadow: 0 0 5px #012030;
+  border-style: none;
+  border-radius: 10px;
+  margin: 5px 0 10px 0;
+}
+
 .modal-inputs select {
   background-color: white;
   padding: 5px;

@@ -80,6 +80,16 @@
         margin: 5px 0 10px 0;
     }
 
+    textarea {
+        padding: 5px;
+        font-size: 1em;
+        color: $primaryColor;
+        box-shadow: 0 0 5px $dark;
+        border-style: none;
+        border-radius: 10px;
+        margin: 5px 0 10px 0;
+    }
+
     select {
         background-color: white;
         padding: 5px ;

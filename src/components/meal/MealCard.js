@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { MyButton } from "../../commons/MyButtons"
 import MyAxios from '../../commons/MyAxios'
 import classNames from 'classnames';
+import EditMeal from "./EditMeal";
 import chicken from "../../images/chicken.png"
 import cow from "../../images/cow.png"
 import fish from "../../images/fish.png"
@@ -19,7 +20,12 @@ function MealCard({
     fillers, 
     ingredients,
     isLogged,
-    removeRecipe
+    removeRecipe,
+    mealCategoriesList, 
+    meatTypesList,
+    fillersList, 
+    ingredientsList,
+    editRecipe
 }) {
 
     const [cardFull, setCardFull] = useState(false)
@@ -35,7 +41,7 @@ function MealCard({
     let img = ""
 
     const setImg = (meatType) => {
-        switch (meatType) {
+        switch (meatType[0]) {
             case "kurczak":
                 img = chicken;
                 break;
@@ -61,7 +67,7 @@ function MealCard({
     const mealData = [
         {label: "Źródło", content: source},
         {label: "Składniki", content: 
-            (meatType ? (meatType=="ryba" ? "" : (meatType=="vege" ? "" : meatType + ", ")) : "") + 
+            (meatType && meatType.length > 0 ? (meatType[0]=="ryba" ? "" : (meatType[0]=="vege" ? "" : meatType[0] + ", ")) : "") + 
             (ingrAll && ingrAll.length > 0 ? ingrAll.join(", ") : "")
         },
         {label: "Porcje", content: portions}
@@ -107,14 +113,21 @@ function MealCard({
                             </div>
                             {isLogged ? 
                                 <div className="meal-buttons">
-                                    <MyButton
-                                        buttonStyle='btn--primary--rev'
-                                        buttonSize='btn--medium--rev'
-                                        // onClick={editMeal}
-                                        title="Edytuj posiłek"
-                                    >
-                                        &nbsp;<i className="fas fa-edit"></i>
-                                    </MyButton> 
+                                    <EditMeal 
+                                        mealId = {mealId}
+                                        mealCategory = {mealCategory}
+                                        mealName = {mealName} 
+                                        source = {source}
+                                        portions = {portions}
+                                        meatType = {meatType}
+                                        fillers = {fillers} 
+                                        ingredients = {ingredients}
+                                        mealCategoriesList = {mealCategoriesList}
+                                        meatTypesList = {meatTypesList}
+                                        fillersList = {fillersList} 
+                                        ingredientsList = {ingredientsList}
+                                        editRecipe = {editRecipe}
+                                    />
                                     <MyButton
                                         buttonStyle='btn--primary--rev'
                                         buttonSize='btn--medium--rev'

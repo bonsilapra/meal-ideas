@@ -8,6 +8,7 @@ import fish from "../../images/fish.png"
 import leaf from "../../images/leaf.png"
 import pig from "../../images/pig.png"
 import "./MealCard.css"
+import EditMeal from "./EditMeal";
 
 function MealCardMultiMeat({
     mealId,
@@ -19,7 +20,12 @@ function MealCardMultiMeat({
     fillers, 
     ingredients,
     isLogged,
-    removeRecipe
+    removeRecipe,
+    mealCategoriesList, 
+    meatTypesList,
+    fillersList, 
+    ingredientsList,
+    editRecipe
 }) {
 
     const [cardFull, setCardFull] = useState(false)
@@ -95,14 +101,21 @@ function MealCardMultiMeat({
                             </div>
                             {isLogged ? 
                                 <div className="meal-buttons">
-                                    <MyButton
-                                        buttonStyle='btn--primary--rev'
-                                        buttonSize='btn--medium--rev'
-                                        // onClick={editMeal}
-                                        title="Edytuj posiłek"
-                                    >
-                                        &nbsp;<i className="fas fa-edit"></i>
-                                    </MyButton> 
+                                    <EditMeal 
+                                        mealId = {mealId}
+                                        mealCategory = {mealCategory}
+                                        mealName = {mealName} 
+                                        source = {source}
+                                        portions = {portions}
+                                        meatType = {meatType}
+                                        fillers = {fillers} 
+                                        ingredients = {ingredients}
+                                        mealCategoriesList = {mealCategoriesList}
+                                        meatTypesList = {meatTypesList}
+                                        fillersList = {fillersList} 
+                                        ingredientsList = {ingredientsList}
+                                        editRecipe = {editRecipe}
+                                    />
                                     <MyButton
                                         buttonStyle='btn--primary--rev'
                                         buttonSize='btn--medium--rev'
