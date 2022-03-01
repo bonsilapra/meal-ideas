@@ -191,7 +191,7 @@ function MainPage() {
             } 
         })
 
-    let PageSize = 12;
+    let PageSize = 16;
 
     const [currentPage, setCurrentPage] = useState(1);
 
