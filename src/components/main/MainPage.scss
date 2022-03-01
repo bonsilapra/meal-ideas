@@ -96,6 +96,7 @@
 
 .add-meal-container {
     @include flexCenter(row);
+    flex-wrap: wrap;
 }
 
 @media screen and (max-width: 400px) {

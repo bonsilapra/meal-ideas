@@ -138,15 +138,69 @@ function MainPage() {
             )
     },[]);
 
-    let PageSize = 18;
+    const recipesFiltered =
+    recipes && recipes
+        .sort((a,b) => {
+            return a.name.localeCompare(b.name)
+        })
+        .filter((val) => {
+            if (searchMeal == "") {
+                return val
+            } else if (val.name.toLowerCase().includes(searchMeal.toLowerCase())) {
+                return val
+            }
+        })
+        .filter((meal) => {
+            if (!filterMeal.mealCategory || filterMeal.mealCategory == "") {
+                return true
+            } 
+            else if (filterMeal.mealCategory == meal.category) {
+                return true
+            }
+        })
+        .filter((meal) => {
+            if (!filterMeal.meatType || filterMeal.meatType.length == 0) {
+                return true
+            } 
+            else  {
+                return filterMeal.meatType.every(meat => meal.meats.includes(meat))
+            }
+        })
+        .filter((meal) => {
+            if (!filterMeal.portions || filterMeal.portions == "") {
+                return true
+            } 
+            else if (filterMeal.portions == meal.yield) {
+                return true
+            }
+        })
+        .filter((meal) => {
+            if (!filterMeal.fillers || filterMeal.fillers.length == 0) {
+                return true
+            } 
+            else { 
+                return filterMeal.fillers.every(fill => meal.fillers.includes(fill))
+            } 
+        })
+        .filter((meal) => {
+            if (!filterMeal.ingredients || filterMeal.ingredients.length == 0) {
+                return true
+            } 
+            else { 
+                return filterMeal.ingredients.every(ingr => meal.ingredients.includes(ingr))
+            } 
+        })
+
+    let PageSize = 12;
 
     const [currentPage, setCurrentPage] = useState(1);
 
     const currentTableData = useMemo(() => {
         const firstPageIndex = (currentPage - 1) * PageSize;
         const lastPageIndex = firstPageIndex + PageSize;
-        return recipes.slice(firstPageIndex, lastPageIndex);
-    }, [currentPage, recipes]);
+        return recipesFiltered.slice(firstPageIndex, lastPageIndex);
+    }, [currentPage, recipesFiltered, PageSize]);
+
 
 
     const portionsValues = 
@@ -280,7 +334,7 @@ function MainPage() {
                             <div>
                                 <select value="" onChange={mealCategoryHandler}> 
                                     {mealCategories && mealCategories.map((mealCat) => {
-                                        return <option key={mealCat.value} value={mealCat.value} className={mealCat.class}>{mealCat.text}</option>
+                                        return <option key={mealCat.text} value={mealCat.value} className={mealCat.class}>{mealCat.text}</option>
                                     })}
                                 </select>
                             </div>
@@ -289,7 +343,7 @@ function MainPage() {
                                     <select value="" onChange={meatTypeHandler}>
                                         {meatTypes && meatTypes.map((meatType) => 
                                             <option 
-                                                key={meatType.value} 
+                                                key={meatType.text} 
                                                 value={meatType.value} 
                                                 className={meatType.class} 
                                                 disabled={filterMeal.meatType.includes(meatType.value)}
@@ -305,7 +359,7 @@ function MainPage() {
                                     {portions && portions
                                     .sort((a, b) => a.value.localeCompare(b.value))
                                     .map((portion) => {
-                                        return <option key={portion.value} value={portion.value}>{portion.text}</option>
+                                        return <option key={portion.text} value={portion.value}>{portion.text}</option>
                                     })}
                                 </select>
                             </div>
@@ -315,7 +369,7 @@ function MainPage() {
                                     .sort((a, b) => a.value.localeCompare(b.value))
                                     .map((fillerType) => 
                                         <option 
-                                            key={fillerType.value} 
+                                            key={fillerType.text} 
                                             value={fillerType.value} 
                                             disabled={filterMeal.fillers.includes(fillerType.value)}
                                         >
@@ -330,7 +384,7 @@ function MainPage() {
                                     .sort((a, b) => a.value.localeCompare(b.value))
                                     .map((ingrType) => 
                                         <option 
-                                            key={ingrType.value} 
+                                            key={ingrType.text} 
                                             value={ingrType.value} 
                                             disabled={filterMeal.ingredients.includes(ingrType.value)}
                                         >
@@ -413,53 +467,6 @@ function MainPage() {
                 :
                 <div className="cards-container">
                     {currentTableData
-                        .filter((val) => {
-                            if (searchMeal == "") {
-                                return val
-                            } else if (val.name.toLowerCase().includes(searchMeal.toLowerCase())) {
-                                return val
-                            }
-                        })
-                        .filter((meal) => {
-                            if (!filterMeal.mealCategory || filterMeal.mealCategory == "") {
-                                return true
-                            } 
-                            else if (filterMeal.mealCategory == meal.category) {
-                                return true
-                            }
-                        })
-                        .filter((meal) => {
-                            if (!filterMeal.meatType || filterMeal.meatType.length == 0) {
-                                return true
-                            } 
-                            else  {
-                                return filterMeal.meatType.every(meat => meal.meats.includes(meat))
-                            }
-                        })
-                        .filter((meal) => {
-                            if (!filterMeal.portions || filterMeal.portions == "") {
-                                return true
-                            } 
-                            else if (filterMeal.portions == meal.yield) {
-                                return true
-                            }
-                        })
-                        .filter((meal) => {
-                            if (!filterMeal.fillers || filterMeal.fillers.length == 0) {
-                                return true
-                            } 
-                            else { 
-                                return filterMeal.fillers.every(fill => meal.fillers.includes(fill))
-                            } 
-                        })
-                        .filter((meal) => {
-                            if (!filterMeal.ingredients || filterMeal.ingredients.length == 0) {
-                                return true
-                            } 
-                            else { 
-                                return filterMeal.ingredients.every(ingr => meal.ingredients.includes(ingr))
-                            } 
-                        })
                         .map((meal) => {
                             return(
                                 (meal.meats && meal.meats.length < 2) ?
@@ -507,7 +514,7 @@ function MainPage() {
                 <Pagination
                     className="pagination-bar"
                     currentPage={currentPage}
-                    totalCount={recipes.length}
+                    totalCount={recipesFiltered.length}
                     pageSize={PageSize}
                     onPageChange={page => setCurrentPage(page)}
                 />

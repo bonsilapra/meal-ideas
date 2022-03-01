@@ -142,28 +142,32 @@ function MealCard({
                     </div>
                     {cardFull ?
                         <div className="meal-details">
-                            {mealData.map((pos) =>
-                                <div className="detail-type" key={pos.label}>
-                                    <div className="label">
-                                        <h4>{pos.label}</h4>
+                            <div className="meal-description">
+                                {mealData.map((pos) =>
+                                    <div className="detail-type" key={pos.label}>
+                                        <div className="label">
+                                            <h4>{pos.label}</h4>
+                                        </div>
+                                        <div className="content">
+                                            {pos.content.includes('http') ?
+                                                <a href={pos.content} target='_blank' rel='noreferrer'>{pos.content}</a>
+                                                :
+                                                <p>{pos.content}</p>
+                                            }
+                                        </div>
                                     </div>
-                                    <div className="content">
-                                        {pos.content.includes('http') ?
-                                            <a href={pos.content} target='_blank' rel='noreferrer'>{pos.content}</a>
-                                            :
-                                            <p>{pos.content}</p>
-                                        }
-                                    </div>
-                                </div>
-                            )}
-                            <MyButton
-                                buttonStyle='btn--primary--rev'
-                                buttonSize='btn--medium--rev'
-                                onClick={handleCard}
-                                title="Zwiń"
-                            >
-                                <i className="fas fa-angle-up"></i>
-                            </MyButton>
+                                )}
+                            </div>
+                            <div>
+                                <MyButton
+                                    buttonStyle='btn--primary--rev'
+                                    buttonSize='btn--medium--rev'
+                                    onClick={handleCard}
+                                    title="Zwiń"
+                                >
+                                    <i className="fas fa-angle-up"></i>
+                                </MyButton>
+                            </div>
                         </div>: ""
                     }
                 </div>

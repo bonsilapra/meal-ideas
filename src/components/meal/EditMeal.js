@@ -321,7 +321,7 @@ function EditMeal({
                             title='Dodaj posiłek'
                             disabled={editMeal.mealName.length == 0 || editMeal.mealCategory.length == 0 || (editMeal.mealCategory == "obiad" && editMeal.meatType.length == 0)}
                         >
-                            Dodaj
+                            Zapisz
                         </MyButton>
                     </div>
                 </div>
