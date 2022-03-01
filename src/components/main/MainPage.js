@@ -136,7 +136,7 @@ function MainPage() {
         const firstPageIndex = (currentPage - 1) * PageSize;
         const lastPageIndex = firstPageIndex + PageSize;
         return recipes.slice(firstPageIndex, lastPageIndex);
-    }, [currentPage]);
+    }, [currentPage, recipes]);
 
 
     const portionsValues = 
@@ -402,7 +402,7 @@ function MainPage() {
                 </div>
                 :
                 <div className="cards-container">
-                    {recipes
+                    {currentTableData
                         .filter((val) => {
                             if (searchMeal == "") {
                                 return val
