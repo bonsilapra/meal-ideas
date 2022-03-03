@@ -1,3 +1,26 @@
+# About
+
+This app was created to list and organize meal ideas. It allows you to create a database of different types of meals and sort it according to selected criteria.
+
+## Live demo
+
+[Meal ideas](http://joanna-falkowska.pl/meal-ideas/)
+
+## Technology stack and tools:
+
+- React.js
+- JavaScript
+- HTML
+- CSS
+- SASS
+- axios
+- bootstrap
+- classnames
+- react-dom
+- react-modal
+- react-router-dom
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
