@@ -6,6 +6,8 @@ This app was created to list and organize meal ideas. It allows you to create a 
 
 [Meal ideas](http://joanna-falkowska.pl/meal-ideas/)
 
+[Backend](https://github.com/Qbixer/recipes-backend) by Qbixer
+
 ## Technology stack and tools:
 
 - React.js
